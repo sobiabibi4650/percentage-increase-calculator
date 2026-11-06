@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "Are calculator entries uploaded?",
+    answer:
+      "No. Percentage math runs in your browser. The numbers you type are not sent to a server to be calculated, stored, or sold.",
+  },
+  {
+    question: "Do I need an account?",
+    answer:
+      "No. There is no sign-in, no profile, and no saved history on a server. A shared link only contains the numbers you chose to put in the address bar.",
+  },
+  {
+    question: "Does the site set advertising cookies?",
+    answer:
+      "No advertising or analytics cookies are set by this site. Your host or browser may still keep ordinary connection logs outside the calculator.",
+  },
+];
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="The percentage calculators run in your browser. Entries are not uploaded for calculation, and the site does not ask you to create an account."
+  path="/privacy"
+  faqs={faqs}
+  crumb={{ name: "Privacy", path: "/privacy" }}
+>
+  <Crumbs current="Privacy" />
+  <h1>Privacy Policy</h1>
+  <p class="lede">The calculators on percentageincreasecalculator.us are static pages plus math that runs on your device.</p>
+
+  <section>
+    <h2>What you type</h2>
+    <p>
+      Starting values, prices, salaries, and percents stay in the page. Changing a number updates the result locally. Copying a link puts those figures in the URL so someone else can open the same example. If you do not want the numbers in a link, do not copy it, and clear the fields before you share the address.
+    </p>
+    <p>
+      There is no account, no cloud save, and no sale of calculator inputs. The site does not ask for your name, email, or pay stub.
+    </p>
+  </section>
+
+  <section>
+    <h2>Hosting and pages</h2>
+    <p>
+      Like most public websites, the host that serves these pages can see standard request data such as IP address, browser type, and the URL that was requested. A shared calculator URL includes the query string you created. This site does not add analytics scripts or advertising cookies.
+    </p>
+    <p>
+      Salary and price examples are illustrations. They are not collected as financial records, and they are not advice about your taxes or your job.
+    </p>
+  </section>
+
+  <section>
+    <h2>Children and changes</h2>
+    <p>
+      The site is a general math tool. It is not directed at children, and it does not knowingly collect personal information from anyone. If the policy changes, the revised version will appear on this page.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

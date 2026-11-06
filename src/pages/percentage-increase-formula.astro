@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "What is the percentage increase formula?",
+    answer:
+      "Percentage increase = (new − original) / original × 100. The original is the baseline. A negative answer means the value decreased.",
+  },
+  {
+    question: "What formula adds a percent to a number?",
+    answer:
+      "New value = original × (1 + percent / 100). For a 5% addition, multiply by 1.05.",
+  },
+  {
+    question: "What formula finds the original amount?",
+    answer:
+      "Original = new / (1 + percent / 100). This is undefined when the percent is exactly −100, because the divisor is 0.",
+  },
+  {
+    question: "Where does percentage difference fit?",
+    answer:
+      "Percentage difference = |A − B| / |((A + B) / 2)| × 100. It does not use the increase formula, and it does not treat either number as the original.",
+  },
+];
+---
+
+<BaseLayout
+  title="Percentage Increase Formula"
+  description="The percentage increase formula is (new − original) / original × 100. Related formulas cover adding a percent and recovering the original value."
+  path="/percentage-increase-formula"
+  faqs={faqs}
+  crumb={{ name: "Formula", path: "/percentage-increase-formula" }}
+>
+  <Crumbs current="Formula" />
+  <h1>Percentage Increase Formula</h1>
+  <p class="lede">Three short formulas cover finding a percent, applying one, and undoing one.</p>
+
+  <section>
+    <h2>Find the percent</h2>
+    <p class="formula">((new − original) ÷ original) × 100</p>
+    <p>
+      The subtraction finds how much the number moved. Dividing by the original turns that move into a share of the starting amount. Multiplying by 100 writes the share as a percent. From 4 to 5, the change is 1, and 1 / 4 is 25%.
+    </p>
+    <p>
+      Nothing in the formula forces the new number to be larger. From 5 to 4, the change is −1, and −1 / 5 is −20%. Call that a 20% decrease. The absolute value is useful when you are describing the size of a drop in a sentence, but the signed result is what the formula actually produces.
+    </p>
+    <p>
+      Division by the original is why a start of 0 is undefined. There is no share of zero that equals a later number. Do not replace that case with infinity.
+    </p>
+    <p><a href="/?mode=find&from=4&to=5">Try 4 and 5 in the calculator</a>.</p>
+  </section>
+
+  <section>
+    <h2>Apply a percent</h2>
+    <p class="formula">original × (1 + percent ÷ 100)</p>
+    <p>
+      The “1” keeps the original amount. The fraction adds the extra share. Five percent of 1,850 is 92.50, and 1,850 × 1.05 is 1,942.50. A percent written as a whole number has to be divided by 100 before you fold it in. Confusing 5 with 0.05 is how a 5% tip becomes a 500% tip.
+    </p>
+    <p><a href="/?mode=add&value=1850&percent=5">Add 5% to 1,850</a>.</p>
+  </section>
+
+  <section>
+    <h2>Recover the original</h2>
+    <p class="formula">new ÷ (1 + percent ÷ 100)</p>
+    <p>
+      This is the apply formula solved for the original. Thirteen divided by 1.30 is 10, so a value that became 13 after a 30% increase started at 10. When the percent is −100, the divisor is 0 and the original is undefined.
+    </p>
+    <p><a href="/?mode=reverse&new=13&percent=30">Reverse 13 after a 30% increase</a>.</p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

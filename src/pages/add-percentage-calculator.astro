@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I add a percent to a number?",
+    answer:
+      "Multiply the number by 1 plus the percent divided by 100. Adding 5% to 1,850 is 1,850 × 1.05 = 1,942.50.",
+  },
+  {
+    question: "How do I take a percent off?",
+    answer:
+      "Use a negative percent, or multiply by 1 minus the percent divided by 100. Taking 20% off 50 is 50 × 0.80 = 40.",
+  },
+  {
+    question: "Is adding 10% twice the same as adding 20%?",
+    answer:
+      "No. Two 10% increases compound. 100 becomes 110, then 121. A single 20% increase stops at 120.",
+  },
+  {
+    question: "Can I paste a dollar amount?",
+    answer:
+      "Yes. $1,850 and 1850 are read as the same number. The calculator strips the dollar sign and the comma.",
+  },
+];
+---
+
+<BaseLayout
+  title="Add a Percentage Calculator"
+  description="Add or subtract a percent from any number and see the new value immediately. Paste US currency such as $1,850 and include decimals."
+  path="/add-percentage-calculator"
+  faqs={faqs}
+  crumb={{ name: "Add a percentage", path: "/add-percentage-calculator" }}
+  webApp
+>
+  <Crumbs current="Add a percentage" />
+  <h1>Add a Percentage Calculator</h1>
+  <p class="lede">Start with a value, type the percent, and read the new amount. A negative percent takes money off.</p>
+  <Calculator client:load initialMode="add" initialValue="1850" initialPercent="5" display="currency" />
+
+  <section>
+    <h2>What the multiplication is doing</h2>
+    <p>
+      “Add 5%” means keep the whole original and also add five hundredths of it. That is the same as multiplying by 1.05. For a repair bill of $1,850, five percent is $92.50, and the total is $1,942.50.
+    </p>
+    <p>
+      You do not need this mode when you already know both the old and the new numbers. In that case, Find percent will tell you what percent was applied. Use Add percent when the rate is the thing you know, and the outcome is the thing you want.
+    </p>
+  </section>
+
+  <section>
+    <h2>A tip, a markup, and a cut</h2>
+    <ul class="examples">
+      <li>A $64 dinner plus an 18% tip is 64 × 1.18 = $75.52.</li>
+      <li>A $36 wholesale cost plus a 40% markup is 36 × 1.40 = $50.40. That markup is not the same as a 40% margin on the selling price.</li>
+      <li>A $90 fee with 15% removed is 90 × 0.85 = $76.50.</li>
+    </ul>
+    <p>
+      Sales tax works the same way when the rate is known, but this page does not look up a local tax rate. Enter the percent you intend to apply.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

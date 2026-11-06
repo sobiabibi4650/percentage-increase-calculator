@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do you calculate a percentage increase?",
+    answer:
+      "Subtract the starting value from the new value, divide by the starting value, and multiply by 100. A move from 4 to 5 is (5 − 4) / 4 × 100, which is a 25% increase.",
+  },
+  {
+    question: "What if the number went down?",
+    answer:
+      "Use the same formula. A negative result is a decrease, and this calculator labels it that way. From 5 to 4 the change is −20%.",
+  },
+  {
+    question: "What happens when the starting value is 0?",
+    answer:
+      "The percentage is undefined, because the formula divides by the starting value. You will see the word undefined, not a blank result or an infinity symbol.",
+  },
+  {
+    question: "Can the result be more than 100%?",
+    answer:
+      "Yes. Doubling a number is a 100% increase. Going from 100 to 250 is a 150% increase. A 100% decrease means the new value is 0.",
+  },
+  {
+    question: "How do I add a percent, or undo one?",
+    answer:
+      "To add 5% to $1,850, multiply by 1.05, which is $1,942.50. To undo a 30% increase that landed on 13, divide 13 by 1.30, which returns 10. A change of exactly −100% has no single original value.",
+  },
+  {
+    question: "Do you store what I type?",
+    answer:
+      "No. The math runs in your browser. The numbers are not sent to a server to be calculated, and you do not need an account.",
+  },
+];
+---
+
+<BaseLayout
+  title="Percentage Increase Calculator"
+  description="Find the percent increase or decrease between two numbers, add a percent, or recover the original value. Free, instant, and calculated in your browser."
+  path="/"
+  faqs={faqs}
+  webApp
+>
+  <h1>Percentage Increase Calculator</h1>
+  <p class="lede">Enter the old number and the new one. The percent, including a drop, updates as you type.</p>
+  <Calculator client:load initialMode="find" initialFrom="4" initialTo="5" />
+  <noscript>
+    <p>The interactive calculator needs JavaScript. The formula and the worked examples below are in the page itself.</p>
+  </noscript>
+
+  <section>
+    <h2>The formula</h2>
+    <p>
+      Percentage increase compares a new number with the number you started from. Divide the change by the starting value, then multiply by 100:
+    </p>
+    <p class="formula">((new − original) ÷ original) × 100</p>
+    <p>
+      If the result is negative, the value fell. This page labels that result as a decrease rather than hiding the sign. Adding a percent, and reversing a percent, use the two other modes above. Comparing two numbers that have no before-and-after order is a different question, answered on the percentage difference page.
+    </p>
+  </section>
+
+  <section>
+    <h2>Examples you can reopen</h2>
+    <ul class="examples">
+      <li><a href="/?mode=find&from=4&to=5">Coffee from $4 to $5</a> is a 25% increase.</li>
+      <li><a href="/?mode=find&from=5&to=4">The same cup back from $5 to $4</a> is a 20% decrease.</li>
+      <li><a href="/?mode=add&value=1850&percent=5">Add 5% to $1,850</a> and the new amount is $1,942.50.</li>
+      <li><a href="/?mode=reverse&new=13&percent=30">Reverse a 30% increase that ended at 13</a> and the original is 10.</li>
+    </ul>
+    <p>
+      A starting value of 0 cannot produce a percent change, because you would be dividing by zero. The result is undefined. The same is true when you try to reverse a change of exactly −100%.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

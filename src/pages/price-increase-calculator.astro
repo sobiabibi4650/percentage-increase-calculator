@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do you calculate a price increase?",
+    answer:
+      "Subtract the old price from the new price, divide by the old price, and multiply by 100. A jump from $36 to $45 is (45 − 36) / 36 × 100 = 25%.",
+  },
+  {
+    question: "How do I raise a price by a known percent?",
+    answer:
+      "Multiply the current price by 1 plus the percent divided by 100. A $36 price plus 25% is 36 × 1.25 = $45. Use Add percent for that path.",
+  },
+  {
+    question: "Does a 10% increase followed by a 10% cut get me back to the start?",
+    answer:
+      "No. Ten percent of the higher price is a larger dollar amount than ten percent of the original. $100 becomes $110, and 10% off $110 is $99.",
+  },
+  {
+    question: "Can I paste a shelf price with a dollar sign?",
+    answer:
+      "Yes. $1,850.00 is read as 1850. The result is shown in US dollars.",
+  },
+];
+---
+
+<BaseLayout
+  title="Price Increase Calculator"
+  description="Find the percent a price went up or down, or apply a percent to a US dollar amount. Old and new shelf prices update the result as you type."
+  path="/price-increase-calculator"
+  faqs={faqs}
+  crumb={{ name: "Price increase", path: "/price-increase-calculator" }}
+  webApp
+>
+  <Crumbs current="Price increase" />
+  <h1>Price Increase Calculator</h1>
+  <p class="lede">Compare an old shelf price with a new one, or add a markup percent. Results stay in dollars.</p>
+  <Calculator client:load initialMode="find" initialFrom="36" initialTo="45" display="currency" />
+
+  <section>
+    <h2>Old price first</h2>
+    <p>
+      A pair of jeans goes from $36 to $45. The extra cost is $9. Nine dollars is a quarter of the original $36, so the increase is 25%. If the tag later falls from $45 to $36, the decrease is $9 / $45, or 20%. The dollars match. The percentages do not, because each one is measured against a different tag.
+    </p>
+    <p>
+      Grocery and rent changes work the same way. A gallon from $3.20 to $3.68 rose by $0.48, which is 15%. Enter the earlier price in the first box even when the story you are telling is “it got cheaper.” A lower second number is labeled as a decrease.
+    </p>
+  </section>
+
+  <section>
+    <h2>Markup is not the same as margin</h2>
+    <p>
+      Adding 25% to a $36 cost sets a $45 price. The markup on cost is 25%. The margin on the selling price is $9 / $45, or 20%. This calculator applies the percent you type to the number you type. It does not convert markup into margin for you. If you already have both prices, Find percent is the direct route and you do not need to guess which retail phrase applies.
+    </p>
+    <p>
+      A price that starts at $0 has no percentage increase. Something that was free and now costs money needs a dollar description, not a percent.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

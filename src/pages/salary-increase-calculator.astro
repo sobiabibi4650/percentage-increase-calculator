@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do you calculate a salary increase percentage?",
+    answer:
+      "Subtract the current annual salary from the new annual salary, divide by the current salary, and multiply by 100. A move from $50,000 to $55,000 is a 10% raise.",
+  },
+  {
+    question: "How do monthly and hourly gross figures get calculated?",
+    answer:
+      "Monthly gross is the annual amount divided by 12. Semimonthly uses 24, biweekly uses 26, and weekly uses 52. Hourly gross divides by 2,080, which is 40 hours times 52 weeks.",
+  },
+  {
+    question: "Does this include taxes?",
+    answer:
+      "No. Every figure is gross pay before federal tax, state tax, Social Security, Medicare, benefits, and other deductions. It is not a take-home estimate and it is not employment advice.",
+  },
+  {
+    question: "What if I only know the raise percent?",
+    answer:
+      "Switch to Add percent, enter the current annual salary, and type the raise. A 10% raise on $50,000 produces a new annual salary of $55,000, or about $4,583.33 a month.",
+  },
+];
+---
+
+<BaseLayout
+  title="Salary Increase Calculator"
+  description="Turn a raise into a percent and see gross monthly, semimonthly, biweekly, weekly, and hourly pay. Figures are before taxes and are not payroll advice."
+  path="/salary-increase-calculator"
+  faqs={faqs}
+  crumb={{ name: "Salary increase", path: "/salary-increase-calculator" }}
+  webApp
+>
+  <Crumbs current="Salary increase" />
+  <h1>Salary Increase Calculator</h1>
+  <p class="lede">Compare two annual salaries, or apply a raise percent. Gross pay is shown from monthly through hourly.</p>
+  <Calculator
+    client:load
+    initialMode="find"
+    initialFrom="50000"
+    initialTo="55000"
+    display="currency"
+    showPayPeriods
+  />
+
+  <section>
+    <h2>What a 10% raise looks like across pay periods</h2>
+    <p>
+      Someone earning $50,000 who is offered $55,000 is looking at a $5,000 raise. Divide 5,000 by 50,000 and the raise is 10%. The new gross pay is $4,583.33 a month, $2,291.67 twice a month, $2,115.38 every two weeks, $1,057.69 a week, and $26.44 an hour.
+    </p>
+    <p>
+      Those splits assume the new annual figure is paid evenly. Hourly gross assumes a 40-hour week for a full year, 2,080 hours. If you work a different schedule, divide the annual salary by your own expected hours. Biweekly and semimonthly are easy to mix up: there are 26 biweekly checks in a year and 24 semimonthly checks. Two checks a month is not the same as a check every two weeks.
+    </p>
+  </section>
+
+  <section>
+    <h2>Use the mode that matches the offer</h2>
+    <p>
+      If the letter states both salaries, stay on Find percent. If it states “4% across the board,” switch to Add percent and enter your current annual pay. If you know the new salary and the percent, Reverse will estimate the old one. A current salary of $0 cannot produce a raise percent, because there is no baseline to divide by.
+    </p>
+    <p>
+      This page does not adjust for inflation, cost of living, bonuses, overtime, or unpaid time off. A 3% raise can lose ground to prices, and a 3% raise plus a bonus is not the same as a 3% raise in base pay. Treat the table as gross arithmetic so you can compare an offer, then look at your actual pay stub for withholdings.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

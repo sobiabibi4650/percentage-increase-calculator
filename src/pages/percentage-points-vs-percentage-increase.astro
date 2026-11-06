@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "What is a percentage point?",
+    answer:
+      "A percentage point is the simple subtraction of two percents. A rate that moves from 5% to 7% has risen by 2 percentage points.",
+  },
+  {
+    question: "What is the percentage increase in that same example?",
+    answer:
+      "Relative to the old rate, (7 − 5) / 5 × 100 = 40%. The rate grew by 40% of its previous size, which is 2 percentage points.",
+  },
+  {
+    question: "Which one should a news sentence use?",
+    answer:
+      "Use percentage points when you are talking about the width of the gap between two rates. Use percentage increase when you are talking about how large the change is compared with the starting rate. Naming both is the clearest option.",
+  },
+  {
+    question: "Does this calculator speak in percentage points?",
+    answer:
+      "The calculators on this site compute percentage change of the numbers you type. If you type 5 and 7, you get a 40% increase. The 2-point gap is just 7 minus 5, and you do not need a special mode for that subtraction.",
+  },
+];
+---
+
+<BaseLayout
+  title="Percentage Points vs Percentage Increase"
+  description="A rate moving from 5% to 7% rises by 2 percentage points and by 40% relative to where it started. Here is how to keep those two statements apart."
+  path="/percentage-points-vs-percentage-increase"
+  faqs={faqs}
+  crumb={{ name: "Percentage points", path: "/percentage-points-vs-percentage-increase" }}
+>
+  <Crumbs current="Percentage points" />
+  <h1>Percentage Points vs Percentage Increase</h1>
+  <p class="lede">Subtract two rates to get percentage points. Divide the gap by the old rate to get the percentage increase.</p>
+
+  <section>
+    <h2>One move, two true descriptions</h2>
+    <p>
+      A savings rate goes from 5% to 7%. The gap is 7 − 5 = 2, so the rate rose by 2 percentage points. That subtraction does not care how large the starting rate was. A move from 90% to 92% is also 2 percentage points.
+    </p>
+    <p>
+      The percentage increase asks a second question: how big is that gap compared with the rate you had before? For the savings rate, 2 / 5 × 100 = 40%. The rate is 40% larger than it was. For the move from 90% to 92%, the same 2-point gap is only 2 / 90 × 100, about 2.2222%. The points match. The relative increases do not.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where the mix-up changes a decision</h2>
+    <p>
+      A test average that moves from 70% to 77% improved by 7 percentage points. Relative to 70, the increase is 10%. Saying “scores increased 7%” is ambiguous, and many readers will hear “7 percent of the old score,” which would have landed on 74.9, not 77.
+    </p>
+    <p>
+      Mortgage quotes, unemployment rates, and fee schedules run into the same wording. “Up 1%” might mean one percentage point or a 1% relative bump. Write “1 percentage point, from 6% to 7%” when you mean the subtraction. Write “a 10% increase, from 6% to 6.6%” when you mean the formula.
+    </p>
+    <p>
+      <a href="/?mode=find&from=5&to=7">Run 5 to 7 in the calculator</a> and you will see the relative increase, 40%. The percentage-point gap is the plain subtraction, 2.
+    </p>
+  </section>
+
+  <section>
+    <h2>Points are not the percentage difference either</h2>
+    <p>
+      Percentage difference would compare 5 and 7 against their average of 6, giving about 33.3333%. That third number is useful when the two rates are peers. It is still not “2 percent,” and it is still not the increase from the earlier rate. Pick the baseline on purpose: the old rate, the average, or a simple point gap.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

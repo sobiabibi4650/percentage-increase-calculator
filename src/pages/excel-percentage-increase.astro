@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "What Excel formula calculates percentage increase?",
+    answer:
+      "If the original is in A2 and the new value is in B2, use =(B2-A2)/A2 and format the cell as a percent. Google Sheets uses the same formula.",
+  },
+  {
+    question: "How do I stop a divide-by-zero error?",
+    answer:
+      "Wrap the formula: =IF(A2=0,\"undefined\",(B2-A2)/A2). A blank or a zero original should not display as a huge percent.",
+  },
+  {
+    question: "How do I increase a cell by a percent?",
+    answer:
+      "Use =A2*(1+B2) when B2 already holds 5% or 0.05. Use =A2*(1+B2/100) when B2 holds the whole number 5.",
+  },
+  {
+    question: "Do Google Sheets and Excel differ here?",
+    answer:
+      "Not for these formulas. Percent formatting, IF, and ordinary arithmetic match. Array formulas and tables differ elsewhere, but you do not need them for a percent change.",
+  },
+];
+---
+
+<BaseLayout
+  title="Excel and Google Sheets Percentage Increase"
+  description="Paste-ready Excel and Google Sheets formulas for percent change, adding a percent, and reversing one, including a guard when the original cell is zero."
+  path="/excel-percentage-increase"
+  faqs={faqs}
+  crumb={{ name: "Excel and Sheets", path: "/excel-percentage-increase" }}
+>
+  <Crumbs current="Excel and Sheets" />
+  <h1>Excel and Google Sheets Percentage Increase</h1>
+  <p class="lede">The same three formulas work in both spreadsheets. Format the change as a percent, and guard the row whose original value is 0.</p>
+
+  <section>
+    <h2>Percent change from two columns</h2>
+    <p>Put the original in column A and the new value in column B.</p>
+    <pre><code>=(B2-A2)/A2</code></pre>
+    <p>
+      Format the result cell as a percent. With 4 in A2 and 5 in B2, the cell shows 25%. With 5 and 4, it shows −20%. Google Sheets accepts this formula unchanged.
+    </p>
+    <p>If some original cells are blank or zero, avoid the #DIV/0! error:</p>
+    <pre><code>=IF(A2=0,"undefined",(B2-A2)/A2)</code></pre>
+    <p>
+      ABS is useful when you want the size of a move that might start negative, but it is the wrong default for ordinary prices. <code>=(B2-A2)/ABS(A2)</code> still carries the sign of the change, and it treats a negative baseline as a positive divisor. Use it only when that is the comparison you mean.
+    </p>
+  </section>
+
+  <section>
+    <h2>Add a percent, or reverse one</h2>
+    <p>When B2 contains a real percent such as 5% (stored as 0.05):</p>
+    <pre><code>=A2*(1+B2)</code></pre>
+    <p>When B2 contains the whole number 5, meaning five percent:</p>
+    <pre><code>=A2*(1+B2/100)</code></pre>
+    <p>To recover the original from a new value in A2 and a percent in B2:</p>
+    <pre><code>=IF(B2=-1,"undefined",A2/(1+B2))</code></pre>
+    <p>
+      In that last formula, B2 is a spreadsheet percent, so −100% is stored as −1. Dividing by zero is the same undefined case the calculator reports.
+    </p>
+    <p>
+      <a href="/?mode=find&from=100&to=125">Check 100 to 125 online</a>. The spreadsheet result and the calculator should both say 25%.
+    </p>
+  </section>
+
+  <section>
+    <h2>A short worked sheet</h2>
+    <ul class="examples">
+      <li>A2 = 1850, B2 = 5, formula <code>=A2*(1+B2/100)</code> → 1942.5</li>
+      <li>A2 = 80, B2 = 60, formula <code>=(B2-A2)/A2</code> → −25%</li>
+      <li>A2 = 13, B2 = 30%, formula <code>=A2/(1+B2)</code> → 10</li>
+    </ul>
+    <p>
+      Copy the formula down by the fill handle. Keep original and new values in their own columns so you do not overwrite the inputs with the result.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

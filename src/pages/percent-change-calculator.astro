@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "Is percent change the same formula as percentage increase?",
+    answer:
+      "Yes. Percent change is (new − original) / original × 100. The sign tells you the direction: positive is an increase and negative is a decrease.",
+  },
+  {
+    question: "Why is a drop from 5 to 4 not the same size as a rise from 4 to 5?",
+    answer:
+      "Because each calculation divides by a different starting value. From 4 to 5 is 25%. From 5 to 4 is −20%. The dollar change is 1 either way, but the baseline is not.",
+  },
+  {
+    question: "What should I use if there is no original value?",
+    answer:
+      "If you are comparing two peer measurements, use percentage difference. That formula divides by the average of the two numbers instead of by the first one.",
+  },
+  {
+    question: "Can percent change be more than 100%?",
+    answer:
+      "Yes. A stock, a bill, or a headcount can more than double. From 40 to 100 is a 150% change. A −100% change means the new value is 0.",
+  },
+];
+---
+
+<BaseLayout
+  title="Percent Change Calculator"
+  description="Calculate signed percent change from an original value to a new one. Positive means an increase, negative means a decrease, and zero means no change."
+  path="/percent-change-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percent change", path: "/percent-change-calculator" }}
+  webApp
+>
+  <Crumbs current="Percent change" />
+  <h1>Percent Change Calculator</h1>
+  <p class="lede">One signed result covers both directions. A minus sign means the value fell.</p>
+  <Calculator client:load initialMode="find" initialFrom="120" initialTo="90" />
+
+  <section>
+    <h2>How to read the result</h2>
+    <p>
+      Percent change answers “how did this number move, relative to where it started?” Enter the earlier figure first and the later figure second. The calculator divides the difference by the earlier figure.
+    </p>
+    <p>
+      From 120 to 90, the difference is −30. Divide −30 by 120 and you get −0.25, or −25%. The label on the result says decrease, so you do not have to interpret the sign alone. From 90 back to 120 would be a 33.3333% increase. The trip down and the trip up are not mirror images, because each one uses its own starting point.
+    </p>
+    <p>
+      If the original value is 0, percent change is undefined. A population, a price, or a balance that truly starts at zero has no percentage move to report. Say what the new number is instead, or compare the two readings with percentage difference when neither one is “the original.”
+    </p>
+  </section>
+
+  <section>
+    <h2>A payroll example</h2>
+    <p>
+      Suppose overtime hours fall from 16 to 12. The change is (12 − 16) / 16 × 100 = −25%. The hours dropped by 4, which is a quarter of the original 16. If next month they return from 12 to 16, the increase is (16 − 12) / 12 × 100 = 33.3333%. Reporting both figures as “25%” would hide that difference.
+    </p>
+    <p>
+      <a href="/?mode=find&from=120&to=90">Open 120 to 90 on the main calculator</a> if you want a link you can send to someone else.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

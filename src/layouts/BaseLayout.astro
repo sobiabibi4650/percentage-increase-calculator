@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import {
+  absoluteUrl,
+  breadcrumbSchema,
+  faqSchema,
+  jsonLd,
+  webApplicationSchema,
+  type Crumb,
+  type FaqItem,
+} from "../lib/schema";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  faqs?: FaqItem[];
+  crumb?: Crumb;
+  webApp?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, path, faqs = [], crumb, webApp = false, noindex = false } = Astro.props;
+const canonical = absoluteUrl(path);
+const graph = [
+  webApp ? webApplicationSchema(title, description, path) : null,
+  faqs.length ? faqSchema(faqs) : null,
+  crumb ? breadcrumbSchema([crumb]) : null,
+].filter(Boolean);
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Percentage Increase Calculator" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="theme-color" content="#123c78" />
+    {graph.map((entry) => <script type="application/ld+json" set:html={jsonLd(entry)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">%</span>
+          <span>Percentage Increase Calculator</span>
+        </a>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

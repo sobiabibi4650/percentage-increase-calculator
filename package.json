@@ -1,0 +1,27 @@
+{
+  "name": "percentage-increase-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free percentage increase, decrease, difference, salary, and price calculators for a US audience.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --experimental-strip-types --test src/lib/percent.test.ts",
+    "verify": "node scripts/verify-ui.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.1.2",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.7",
+    "preact": "^11.1.1"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.16.0",
+    "typescript": "^7.0.2"
+  }
+}

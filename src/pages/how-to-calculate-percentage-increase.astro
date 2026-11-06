@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "What are the steps, in order?",
+    answer:
+      "Write the original, write the new value, subtract the original from the new value, divide by the original, and multiply by 100. Then read a negative result as a decrease.",
+  },
+  {
+    question: "Which number goes in the denominator?",
+    answer:
+      "The original, starting, or “before” number. Dividing by the new number answers a different question and will not match a percentage increase.",
+  },
+  {
+    question: "What if I only have the percent and want the new total?",
+    answer:
+      "Skip the five steps above. Multiply the original by 1 plus the percent divided by 100.",
+  },
+  {
+    question: "What mistake shows up most often?",
+    answer:
+      "Dividing the change by the new value, or treating a percentage-point gap as a percentage increase. A move from 5% to 7% is 2 percentage points, and it is also a 40% increase relative to 5.",
+  },
+];
+---
+
+<BaseLayout
+  title="How to Calculate Percentage Increase"
+  description="Step-by-step: subtract the original from the new value, divide by the original, and multiply by 100. Includes a worked $4 to $5 example and the mistakes that change the answer."
+  path="/how-to-calculate-percentage-increase"
+  faqs={faqs}
+  crumb={{ name: "How to calculate", path: "/how-to-calculate-percentage-increase" }}
+>
+  <Crumbs current="How to calculate" />
+  <h1>How to Calculate Percentage Increase</h1>
+  <p class="lede">Five steps, one coffee price, and the places the arithmetic usually goes wrong.</p>
+
+  <section>
+    <h2>Walk through $4 to $5</h2>
+    <ol class="steps">
+      <li>Write the original value. The coffee was $4.</li>
+      <li>Write the new value. The coffee is $5.</li>
+      <li>Subtract the original from the new value. 5 − 4 = 1. The price rose by one dollar.</li>
+      <li>Divide that change by the original. 1 ÷ 4 = 0.25. The rise is one quarter of the old price.</li>
+      <li>Multiply by 100 to convert the decimal to a percent. 0.25 × 100 = 25. The increase is 25%.</li>
+    </ol>
+    <p>
+      If step 3 comes out negative, you still finish the steps. From $5 to $4, the change is −1, −1 ÷ 5 is −0.20, and the result is −20%. Say “20% decrease” in a sentence if you prefer words to a signed number. Both refer to the same result.
+    </p>
+    <p><a href="/?mode=find&from=4&to=5">Check $4 to $5 in the calculator</a>.</p>
+  </section>
+
+  <section>
+    <h2>Mistakes that change the answer</h2>
+    <ul class="plain-list">
+      <li>Dividing by the new value. 1 ÷ 5 is 20%, and that is not the increase from 4 to 5.</li>
+      <li>Forgetting to multiply by 100, and reporting 0.25% instead of 25%.</li>
+      <li>Forgetting to divide a whole-number percent by 100 when you apply it. Adding 5% means multiplying by 1.05, not by 1.5 and not by 5.</li>
+      <li>Calling a gap in rates a percentage increase. Interest moving from 5% to 7% rose by 2 percentage points. Relative to the old 5% rate, the increase is 40%.</li>
+      <li>Using the percentage difference formula when you do have a before and after. Difference would compare 4 and 5 against their average, 4.5, and report about 22.2222%.</li>
+      <li>Forcing a result when the original is 0. Stop and call the percent undefined.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Pick the matching shortcut</h2>
+    <p>
+      Once the steps feel solid, you can skip ahead. Known old and new values use the five steps. A known percent uses multiplication by 1 plus that percent. A known final value and a known percent use division by that same factor. Spreadsheet versions of all three are on the Excel and Google Sheets page.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

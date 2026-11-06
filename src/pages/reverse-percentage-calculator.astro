@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Calculator from "../components/Calculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do you reverse a percentage increase?",
+    answer:
+      "Divide the new value by 1 plus the percent divided by 100. If a price is $13 after a 30% increase, the original is 13 / 1.30 = 10.",
+  },
+  {
+    question: "How do you reverse a decrease?",
+    answer:
+      "Divide by 1 minus the percent divided by 100. A final price of $75 after 25% off started at 75 / 0.75 = 100.",
+  },
+  {
+    question: "Why is −100% undefined?",
+    answer:
+      "A −100% change sends every starting number to 0. If the new value is anything else, no original produces it. If the new value is 0, every original would, so there is still no single answer.",
+  },
+  {
+    question: "Is this the same as percentage difference?",
+    answer:
+      "No. Reverse percentage assumes you know which number came later and what percent was applied. Percentage difference compares two numbers with the average as the baseline.",
+  },
+];
+---
+
+<BaseLayout
+  title="Reverse Percentage Calculator"
+  description="Recover the original number from a new value and the percent that was added or removed. A change of exactly −100% is undefined."
+  path="/reverse-percentage-calculator"
+  faqs={faqs}
+  crumb={{ name: "Reverse percentage", path: "/reverse-percentage-calculator" }}
+  webApp
+>
+  <Crumbs current="Reverse percentage" />
+  <h1>Reverse Percentage Calculator</h1>
+  <p class="lede">You know the result and the percent. This finds the number you started with.</p>
+  <Calculator client:load initialMode="reverse" initialNew="13" initialPercent="30" />
+
+  <section>
+    <h2>Divide by the factor, do not subtract the percent of the new number</h2>
+    <p>
+      A common slip is to take 30% off 13 and call 9.10 the original. That subtracts 30% of the later number, not 30% of the earlier one. The increase was applied to the original, so the original sits under the new value: original × 1.30 = 13, and original = 10.
+    </p>
+    <p>
+      The same shape works for a cut. If a coat is $75 after 25% off, the sale price is 75% of the original. Divide 75 by 0.75 to get $100. Enter the percent as −25 in Reverse mode.
+    </p>
+  </section>
+
+  <section>
+    <h2>When there is no original to find</h2>
+    <p>
+      Exactly −100% is the edge. Multiplying by 1 + (−100)/100 multiplies by zero. Every original becomes 0, so you cannot walk backward to one starting value. The calculator reports undefined instead of an error code or an infinitely large number.
+    </p>
+    <p>
+      If you do not actually know the percent, and you have both the old and the new figures, switch to Find percent. Reverse mode is only for the case where the rate is given.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DifferenceCalculator from "../components/DifferenceCalculator.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  {
+    question: "What is the percentage difference formula?",
+    answer:
+      "Divide the absolute gap by the average of the two values, then multiply by 100. For 4 and 6, the gap is 2 and the average is 5, so the difference is 40%.",
+  },
+  {
+    question: "How is that different from a percentage increase?",
+    answer:
+      "Percentage increase divides by the original value only. From 4 to 6 is a 50% increase. The percentage difference between 4 and 6 is 40%, because the baseline is 5, the midpoint.",
+  },
+  {
+    question: "Does the order of the two numbers matter?",
+    answer:
+      "No. The absolute gap is the same either way, and so is the average. Percentage increase does care which number came first.",
+  },
+  {
+    question: "When is percentage difference undefined?",
+    answer:
+      "When the average is 0, which happens if the two values are opposites, such as 5 and −5, or if both are 0. Dividing by that average is not a real percentage.",
+  },
+];
+---
+
+<BaseLayout
+  title="Percentage Difference Calculator"
+  description="Compare two numbers with the average as the baseline. Percentage difference is not the same as percentage increase, and the order of the values does not matter."
+  path="/percentage-difference-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percentage difference", path: "/percentage-difference-calculator" }}
+  webApp
+>
+  <Crumbs current="Percentage difference" />
+  <h1>Percentage Difference Calculator</h1>
+  <p class="lede">Use this when neither number is “before” and neither is “after.”</p>
+  <div class="callout">
+    <strong>This is not a percentage increase.</strong> Increase always divides by the starting value. Difference divides by the average of both values.
+  </div>
+  <DifferenceCalculator client:load initialA="4" initialB="6" />
+
+  <section>
+    <h2>Why the average shows up</h2>
+    <p>
+      Two lab readings, two quotes, or two city prices often have no time order. Calling one of them the original would invent a direction. Percentage difference takes the size of the gap and asks what share it is of the typical size of the two numbers. The typical size used here is the arithmetic mean.
+    </p>
+    <p class="formula">|A − B| ÷ |((A + B) ÷ 2)| × 100</p>
+    <p>
+      For 4 and 6, the gap is 2 and the average is 5. 2 / 5 is 40%. The same pair as an increase from 4 to 6 is (6 − 4) / 4 × 100 = 50%. Both statements can be true. They answer different questions, which is why this calculator lives on its own page and is not a fourth mode of the increase tool.
+    </p>
+  </section>
+
+  <section>
+    <h2>A price quote example</h2>
+    <p>
+      One shop quotes $48 and another quotes $54 for the same part. The gap is $6. The average quote is $51. The percentage difference is 6 / 51 × 100, about 11.7647%. Saying the second shop is 12.5% higher is the increase from 48 to 54, which is fair only if $48 is the reference price you already had. If the two quotes simply arrived together, the average-based figure is the one that does not pick a winner as the baseline.
+    </p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>
