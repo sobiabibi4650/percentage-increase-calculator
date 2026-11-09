@@ -1,5 +1,10 @@
 import { useState } from "preact/hooks";
-import { parseNumber, formatNumber, formatPercent, formatCurrency } from "../lib/percent";
+import { parseNumber, formatNumber as fmtNum, formatCurrency } from "../lib/percent";
+
+// Display rounding for these tools: at most 2 decimals keeps results scannable.
+const two = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+const formatNumber = (v: number) => (Number.isFinite(v) ? two.format(v) : fmtNum(v));
+const formatPercent = (v: number) => (Number.isFinite(v) ? `${two.format(v)}%` : "undefined");
 
 export type Tool = "percentOf" | "off" | "markup" | "profit" | "error" | "fraction" | "win";
 
@@ -49,7 +54,7 @@ function compute(tool: Tool, v: Record<string, string>): Out | string {
       const save = a * (b / 100), price = a - save;
       return { main: formatCurrency(price), label: "Sale price",
         steps: [`Savings = ${formatCurrency(a)} × ${formatNumber(b)}% = ${formatCurrency(save)}`, `Sale price = ${formatCurrency(a)} − ${formatCurrency(save)} = ${formatCurrency(price)}`],
-        extra: [["You save", formatCurrency(save)], ["You pay", `${formatPercent(100 - b)} of the price`]] };
+        extra: [["You save", formatCurrency(save)], ["You pay", `${formatPercent(100 - b)} of price`]] };
     }
     case "markup":
     case "profit": {

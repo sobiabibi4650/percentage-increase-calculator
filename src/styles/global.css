@@ -581,3 +581,25 @@ table.data th { background: var(--soft); font-size: .88rem; }
 .brand-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 340px) { .brand-text { font-size: .95rem; } .header-row { gap: 8px; } }
 .formula { overflow-wrap: anywhere; }
+
+/* ---------- design review fixes ---------- */
+.menu { border: 0; padding: 0; background: none; border-radius: 0; }
+.menu summary { display: inline-flex; align-items: center; }
+.menu summary:hover { border-color: var(--line-strong); background: var(--soft); }
+.faq details summary { justify-content: space-between; gap: 12px; }
+.faq details summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin: -4px 4px 0 0; transition: transform .15s; }
+.faq details[open] summary::after { transform: rotate(225deg); margin-top: 4px; }
+.faq summary::-webkit-details-marker { display: none; }
+.result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.formula, pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 520px) {
+  .card, .calculator { padding: 14px; }
+  .result { padding: 14px; }
+  .modes label { font-size: .85rem; padding: 4px; }
+  .brand-text { font-size: 1rem; overflow: visible; }
+  .brand-text small { display: none; }
+  .brand .logo-mark { width: 32px; height: 32px; }
+  .menu summary { padding: 0 10px; }
+  .header-row { gap: 10px; }
+}
+@media (max-width: 360px) { .menu-label { display: none; } .menu summary::before { content: "Menu"; } }
