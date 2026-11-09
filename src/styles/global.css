@@ -660,3 +660,17 @@ button.secondary:hover, a.secondary:hover { background: var(--brand-soft); color
 .trust { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: -8px 0 18px; padding: 0; font-size: .9rem; font-weight: 600; color: var(--muted); }
 .trust li { display: inline-flex; align-items: center; gap: 6px; }
 .trust li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--chip-up-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23166534' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+
+/* ---------- dark footer: clear end of page, separate zone for links ---------- */
+:root { --footer-bg: #0f172a; --footer-ink: #cbd5e1; --footer-muted: #94a3b8; --footer-head: #e2e8f0; --footer-line: #1e293b; --footer-accent: #60a5fa; }
+@media (prefers-color-scheme: dark) { :root { --footer-bg: #020617; --footer-line: #111a2e; } }
+.site-footer { background: var(--footer-bg); border-top: 0; color: var(--footer-ink); }
+.site-footer p { color: var(--footer-muted); }
+.footer-grid h2 { color: var(--footer-head); }
+.footer-grid ul a { color: var(--footer-ink); }
+.footer-grid ul a:hover { color: #fff; }
+.footer-base { border-color: var(--footer-line); }
+.site-footer .brand { color: #fff; }
+.site-footer .brand-text b { color: var(--footer-accent); }
+.site-footer .brand-text small { color: var(--footer-muted); }
+.site-footer :focus-visible { outline-color: var(--footer-accent); }
