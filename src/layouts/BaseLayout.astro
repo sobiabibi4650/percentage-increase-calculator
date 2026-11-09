@@ -84,10 +84,10 @@ const graph = [
             <div class="menu-guides">{guides.map((l) => <a href={l.href}>{l.label}</a>)}</div>
           </div>
         </details>
-        <nav class="top-links" aria-label="Primary">
-          <a href="/percent-change-calculator" aria-current={current === "/percent-change-calculator" || (current.startsWith("/percent-change-calculator/") ) ? "page" : undefined}>Percent change</a>
-          <a href="/percentage-calculator" aria-current={current === "/percentage-calculator" || (current.startsWith("/percentage-calculator/") ) ? "page" : undefined}>Percentage</a>
-          <a href="/blog" aria-current={current === "/blog" || (current.startsWith("/blog/") ) ? "page" : undefined}>Blog</a>
+        <nav class="top-links" aria-label="Guides">
+          <a href="/percentage-increase-formula" aria-current={current === "/percentage-increase-formula" ? "page" : undefined}>Formula</a>
+          <a href="/how-to-calculate-percentage-increase" aria-current={current === "/how-to-calculate-percentage-increase" ? "page" : undefined}>How to calculate</a>
+          <a href="/blog" aria-current={current === "/blog" || current.startsWith("/blog/") ? "page" : undefined}>Blog</a>
         </nav>
       </div>
     </header>
