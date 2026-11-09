@@ -85,8 +85,6 @@ const graph = [
           </div>
         </details>
         <nav class="top-links" aria-label="Primary">
-          <a href="/percent-change-calculator" aria-current={current === "/percent-change-calculator" || (current.startsWith("/percent-change-calculator/") ) ? "page" : undefined}>Percent change</a>
-          <a href="/percentage-calculator" aria-current={current === "/percentage-calculator" || (current.startsWith("/percentage-calculator/") ) ? "page" : undefined}>Percentage</a>
           <a href="/blog" aria-current={current === "/blog" || (current.startsWith("/blog/") ) ? "page" : undefined}>Blog</a>
         </nav>
       </div>
@@ -94,7 +92,6 @@ const graph = [
     <nav class="quick" aria-label="Popular calculators">
       <div class="wrap wide quick-row">
         {quick.map((l) => <a href={l.href} aria-current={l.href === current ? "page" : undefined}>{l.short}</a>)}
-        <button type="button" class="chip-more">All calculators →</button>
       </div>
     </nav>
     <main id="content">
@@ -110,10 +107,6 @@ const graph = [
         row.scrollLeft = chip.offsetLeft - (row.clientWidth - chip.offsetWidth) / 2;
       }
       const menu = document.querySelector<HTMLDetailsElement>(".menu");
-      document.querySelector(".chip-more")?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (menu) { menu.open = true; window.scrollTo({ top: 0 }); menu.querySelector("summary")?.focus(); }
-      });
       document.addEventListener("click", (e) => { if (menu?.open && !menu.contains(e.target as Node)) menu.open = false; });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu?.open) { menu.open = false; menu.querySelector("summary")?.focus(); } });
     </script>
