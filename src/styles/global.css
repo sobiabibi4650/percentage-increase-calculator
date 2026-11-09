@@ -573,3 +573,11 @@ button:active { transform: translateY(1px); }
 table.data { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; background: var(--card); }
 table.data th, table.data td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; }
 table.data th { background: var(--soft); font-size: .88rem; }
+.crumbs li { display: flex; align-items: center; min-width: 0; }
+.crumbs li:last-child { min-width: 0; flex: 1; }
+.crumbs span[aria-current] { max-width: 100%; }
+.header-row { min-width: 0; }
+.brand { min-width: 0; }
+.brand-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 340px) { .brand-text { font-size: .95rem; } .header-row { gap: 8px; } }
+.formula { overflow-wrap: anywhere; }
