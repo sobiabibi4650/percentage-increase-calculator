@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -38,6 +39,10 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Price from a target markup</h2>
     <p>Selling price = Cost × (1 + markup). To mark up a $40 item by 60%, charge $40 × 1.6 = $64.</p>
+  </section>
+  <section>
+    <h2>How to calculate markup</h2>
+    <p>Subtract the cost from the selling price, divide by the cost, and multiply by 100. A lamp that costs $40 and sells for $60 has a markup of ($60 − $40) ÷ $40 × 100 = 50%. To go the other way and calculate a selling price from a markup percentage, multiply the cost by one plus the markup: $40 × 1.5 = $60.</p>
   </section>
   <section>
     <h2>Typical markups by industry</h2>

@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -14,7 +15,7 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="Percent Off Calculator (Discount & Sale Price)"
+  title="Percent Off Calculator: Percentage Off and Sale Price"
   description="Percent off calculator: enter a price and a discount to get the sale price and your savings, with the math shown. Works for any sale or coupon."
   path="/percent-off-calculator"
   faqs={faqs}
@@ -22,8 +23,8 @@ const faqs: FaqItem[] = [
   webApp
 >
   <Crumbs current="Percent off" />
-  <h1>Percent Off Calculator (Discount & Sale Price)</h1>
-  <p class="lede">Enter the original price and the discount. See the sale price and your savings instantly.</p>
+  <h1>Percent Off Calculator: Percentage Off and Sale Price</h1>
+  <p class="lede">Enter the original price and the percentage off. See the sale price and how much you save, instantly.</p>
   <ToolCalc client:load tool="off" />
 
   <section>

@@ -23,6 +23,11 @@ const faqs: FaqItem[] = [
       "If you are comparing two peer measurements, use percentage difference. That formula divides by the average of the two numbers instead of by the first one.",
   },
   {
+    question: "How do I find the percent change of a percentage?",
+    answer:
+      "Treat the two percentages as ordinary numbers. If a conversion rate rises from 4% to 5%, the percent change is (5 − 4) ÷ 4 × 100 = 25%. The gap itself, 1 point, is the change in percentage points.",
+  },
+  {
     question: "Can percent change be more than 100%?",
     answer:
       "Yes. A stock, a bill, or a headcount can more than double. From 40 to 100 is a 150% change. A −100% change means the new value is 0.",
@@ -40,8 +45,27 @@ const faqs: FaqItem[] = [
 >
   <Crumbs current="Percent change" />
   <h1>Percent Change Calculator</h1>
-  <p class="lede">One signed result covers both directions. A minus sign means the value fell.</p>
+  <p class="lede">Work out the percentage change between any two numbers. One signed result covers both directions: a plus means the value rose, a minus means it fell.</p>
   <Calculator client:load initialMode="find" initialFrom="120" initialTo="90" />
+
+  <section>
+    <h2>Percent change equation</h2>
+    <p class="formula">Percent change = (new value − old value) ÷ |old value| × 100</p>
+    <p>
+      Subtract the old value from the new one, divide by the old value, and multiply by 100. Rent that goes from $1,200 to $1,290 changes by $90, and $90 ÷ $1,200 × 100 = 7.5%. If the result is negative, the value went down. Using the absolute value of the old number keeps the sign meaningful even when you start below zero.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to work out the percentage change, step by step</h2>
+    <ol class="steps">
+      <li>Write down the old value and the new value.</li>
+      <li>Subtract: new − old. This is the change.</li>
+      <li>Divide the change by the old value.</li>
+      <li>Multiply by 100 and add a percent sign.</li>
+      <li>Read the sign: positive is an increase, negative is a decrease.</li>
+    </ol>
+  </section>
 
   <section>
     <h2>How to read the result</h2>

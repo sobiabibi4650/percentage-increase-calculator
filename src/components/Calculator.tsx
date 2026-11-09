@@ -483,6 +483,8 @@ export default function Calculator({
           Clear
         </button>
       </div>
+      {/* Results update live; this lets keyboard and screen-reader users press Enter to submit. */}
+      <button type="submit" class="sr-only">Calculate</button>
     </form>
   );
 }

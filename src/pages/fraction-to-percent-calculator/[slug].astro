@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ToolCalc from "../../components/ToolCalc.tsx";
+import Crumbs from "../../components/Crumbs.astro";
+import Faq from "../../components/Faq.astro";
+import type { FaqItem } from "../../lib/schema";
+import { fractions, fractionSlug, fractionLabel, fractionValue, gcd, pctText, isRepeating, fractionNotes, type Fraction } from "../../lib/conversions";
+
+export function getStaticPaths() {
+  return fractions.map((f) => ({ params: { slug: fractionSlug(f) }, props: { f } }));
+}
+
+const { f } = Astro.props as { f: Fraction };
+const label = fractionLabel(f);
+const value = fractionValue(f);
+const pctStr = pctText(value * 100);
+const fmt4 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 4 });
+const decimal = fmt4.format(value);
+const repeating = isRepeating(f.num, f.den);
+const improperNum = f.whole * f.den + f.num;
+const g = gcd(f.num, f.den);
+const reduced = g > 1 ? `${f.num / g}/${f.den / g}` : null;
+const over100 = 100 % f.den === 0 ? (f.num * 100) / f.den : null;
+const path = `/fraction-to-percent-calculator/${fractionSlug(f)}`;
+// same-denominator family, e.g. all sevenths, so the page shows the pattern rather than one number
+const family = Array.from({ length: Math.max(f.den, f.num) }, (_, i) => i + 1);
+const examples = [20, 50, 80, 200].map((n) => [n, (f.num / f.den + f.whole) * n] as const);
+const related = fractions.filter((o) => o !== f);
+const notes = fractionNotes[label] ?? [];
+const pctBack = value * 100;
+// place this fraction between its nearest neighbours from the common-fractions set
+const ladder = [[1,8],[1,6],[1,5],[1,4],[1,3],[3,8],[2,5],[1,2],[3,5],[5,8],[2,3],[5,7],[3,4],[4,5],[5,6],[6,7],[7,8],[1,1],[5,4],[3,2],[2,1]].map(([n, d]) => ({ label: d === 1 ? String(n) : `${n}/${d}`, v: n / d }));
+const below = [...ladder].reverse().find((x) => x.v < value - 1e-9);
+const above = ladder.find((x) => x.v > value + 1e-9);
+const neighbors = { below, above };
+
+const faqs: FaqItem[] = [
+  { question: `What is ${label} as a percent?`, answer: `${label} is ${pctStr}${repeating ? " (rounded to two decimal places)" : ""}. ${f.whole ? `Convert it to the decimal ${decimal} first` : `Divide ${f.num} by ${f.den} to get ${decimal}`}, then multiply by 100.` },
+  { question: `What is ${label} as a decimal?`, answer: repeating ? `${label} is ${decimal}… The digits repeat forever, so it is usually rounded.` : `${label} is exactly ${decimal}.` },
+  { question: `Is ${label} more than 100%?`, answer: value > 1 ? `Yes. ${label} is greater than 1, so it is more than 100% (${pctStr}).` : value === 1 ? `It equals exactly 100%.` : `No. ${label} is less than 1, so it is less than 100% (${pctStr}).` },
+];
+---
+
+<BaseLayout
+  title={`${label} as a Percent (${pctStr}) with Steps`}
+  description={`${label} as a percent is ${pctStr}. See how to convert ${label} to a percent and a decimal (${decimal}), with the steps, a chart of related fractions, and examples.`}
+  path={path}
+  faqs={faqs}
+  crumbs={[{ name: "Fraction to percent", path: "/fraction-to-percent-calculator" }, { name: `${label} as a percent`, path }]}
+>
+  <Crumbs parent={{ name: "Fraction to percent", href: "/fraction-to-percent-calculator" }} current={`${label} as a percent`} />
+  <h1>{label} as a Percent</h1>
+  <p class="answer"><strong>{label} = {pctStr}</strong>{repeating ? " (rounded)" : ""}. As a decimal it is {decimal}{repeating ? "…" : "."}</p>
+
+  <dl class="facts">
+    <div><dt>Percent</dt><dd>{pctStr}</dd></div>
+    <div><dt>Decimal</dt><dd>{decimal}{repeating ? "…" : ""}</dd></div>
+    <div><dt>{f.whole ? "Improper fraction" : "Simplest form"}</dt><dd>{f.whole ? `${improperNum}/${f.den}` : reduced ?? label}</dd></div>
+    <div><dt>Type</dt><dd>{repeating ? "Repeating decimal" : "Terminating decimal"}</dd></div>
+  </dl>
+
+  <h2 class="calc-title">Convert another fraction</h2>
+  <ToolCalc client:load tool="fraction" initial={[label]} />
+
+  <section>
+    <h2>How to convert {label} to a percent</h2>
+    <ol class="steps">
+      {f.whole ? <li>Turn the fraction part into a decimal: {f.num} ÷ {f.den} = {fmt4.format(f.num / f.den)}.</li> : <li>Divide the top number by the bottom number: {f.num} ÷ {f.den} = {decimal}{repeating ? "…" : ""}.</li>}
+      {f.whole ? <li>Add the whole number: {f.whole} + {fmt4.format(f.num / f.den)} = {decimal}.</li> : null}
+      <li>Multiply by 100: {decimal} × 100 = {pctStr}.</li>
+    </ol>
+    {over100 !== null && !f.whole && (
+      <p>Shortcut: {f.den} goes into 100 exactly {100 / f.den} times, so multiply the top and bottom by {100 / f.den}. {f.num}/{f.den} = {over100}/100 = {pctText(over100)}.</p>
+    )}
+    {repeating && (
+      <p>Because {f.den / g} has a prime factor other than 2 or 5, the decimal never ends. That is why the percent is shown rounded to two decimal places, which is what most teachers and textbooks expect.</p>
+    )}
+  </section>
+
+  {notes.length > 0 && (
+    <section>
+      <h2>Where you will see {label}</h2>
+      {notes.map((n) => <p>{n}</p>)}
+    </section>
+  )}
+
+  {!f.whole && (below || above) && (
+    <section>
+      <h2>How {label} compares with nearby fractions</h2>
+      <p>
+        {below && `${label} (${pctStr}) is a little more than ${below.label} (${pctText(below.v * 100)})`}{below && above ? " and " : ""}{above && `${below ? "" : `${label} (${pctStr}) is `}a little less than ${above.label} (${pctText(above.v * 100)})`}.
+        {" "}This is handy for estimating: if you remember the nearby benchmark, you can check that your answer is in the right range before you rely on it.
+      </p>
+    </section>
+  )}
+
+  {f.whole > 0 && (
+    <section>
+      <h2>Why {label} is more than 100%</h2>
+      <p>
+        Every whole number counts as 100%, so {f.whole} on its own is {f.whole * 100}%. The fraction part, {f.num}/{f.den}, adds another {pctText((f.num / f.den) * 100)}.
+        Put together, {f.whole * 100}% + {pctText((f.num / f.den) * 100)} = {pctStr}. Any mixed number works the same way: the whole number gives the hundreds, and the fraction fills in the rest.
+      </p>
+      <div class="table-scroll"><table class="data">
+        <thead><tr><th>Mixed number</th><th>Decimal</th><th>Percent</th></tr></thead>
+        <tbody>
+          {[[f.whole, 0, 4], [f.whole, 1, 4], [f.whole, 1, 2], [f.whole, 3, 4], [f.whole + 1, 0, 4]].map(([w, n, d]) => {
+            const v = w + n / d;
+            const isCur = Math.abs(v - value) < 1e-9;
+            return <tr class={isCur ? "current" : undefined} aria-current={isCur ? "true" : undefined}><td>{n ? `${w} ${n}/${d}` : w}</td><td>{fmt4.format(v)}</td><td>{pctText(v * 100)}</td></tr>;
+          })}
+        </tbody>
+      </table></div>
+    </section>
+  )}
+
+  <section>
+    <h2>Check it in reverse</h2>
+    <p>
+      To go from the percent back to the fraction, write {pctText(pctBack)} over 100{repeating ? " (using the exact value rather than the rounded one)" : ""} and simplify.
+      {repeating
+        ? ` Because the decimal repeats, ${pctText(pctBack)} is a rounded figure; multiplying it back by ${f.den} gives about ${new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format((pctBack / 100) * f.den)}, which rounds to ${f.whole ? improperNum : f.num}.`
+        : ` ${pctText(pctBack)} = ${new Intl.NumberFormat("en-US", { maximumFractionDigits: 4 }).format(pctBack)}/100, which reduces back to ${f.whole ? `${improperNum}/${f.den}, or ${label}` : reduced ?? label}.`}
+    </p>
+  </section>
+
+  <section>
+    <h2>{label} of common amounts</h2>
+    <p>Knowing that {label} is {pctStr} lets you take that share of any number:</p>
+    <ul class="plain-list">
+      {examples.map(([n, v]) => <li>{label} of {n} = {fmt4.format(Math.round(v * 100) / 100)}</li>)}
+    </ul>
+  </section>
+
+  {!f.whole && (
+    <section>
+      <h2>All the {f.den === 2 ? "halves" : f.den === 3 ? "thirds" : f.den === 4 ? "quarters" : `${f.den}ths`} as percents</h2>
+      <div class="table-scroll"><table class="data">
+        <thead><tr><th>Fraction</th><th>Decimal</th><th>Percent</th></tr></thead>
+        <tbody>
+          {family.map((n) => (
+            <tr class={n === f.num ? "current" : undefined} aria-current={n === f.num ? "true" : undefined}>
+              <td>{n}/{f.den}</td><td>{fmt4.format(n / f.den)}</td><td>{pctText((n / f.den) * 100)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table></div>
+    </section>
+  )}
+
+  <section>
+    <h2>Other fractions as percents</h2>
+    <ul class="link-chips">
+      {related.map((o) => <li><a href={`/fraction-to-percent-calculator/${fractionSlug(o)}`}>{fractionLabel(o)}</a></li>)}
+    </ul>
+  </section>
+
+  <Faq items={faqs} />
+</BaseLayout>

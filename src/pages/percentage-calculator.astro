@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -64,6 +65,7 @@ const faqs: FaqItem[] = [
       </tbody>
     </table></div>
   </section>
+  <ConversionHub kind="scores" />
   <Faq items={faqs} />
   <SeeAlso />
 </BaseLayout>

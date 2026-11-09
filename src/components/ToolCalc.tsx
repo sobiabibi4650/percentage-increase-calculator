@@ -44,7 +44,7 @@ function compute(tool: Tool, v: Record<string, string>): Out | string {
   if (tool === "fraction") {
     const x = parseFraction(v.a);
     if (x === null) return "Enter a fraction such as 3/5, a mixed number such as 4 1/4, or a decimal.";
-    return { main: formatPercent(x * 100), label: `${v.a.trim()} as a percent`, steps: [`${v.a.trim()} = ${formatNumber(x)}`, `${formatNumber(x)} × 100 = ${formatPercent(x * 100)}`] };
+    return { main: formatPercent(x * 100), label: `${v.a.trim()} as a percent`, steps: [`${v.a.trim()} = ${fmtNum(x)}`, `${fmtNum(x)} × 100 = ${formatPercent(x * 100)}`] };
   }
   const a = parseNumber(v.a), b = parseNumber(v.b ?? "");
   if (a === null || b === null) return "Enter a number in each box.";
@@ -117,9 +117,9 @@ function compute(tool: Tool, v: Record<string, string>): Out | string {
   return "";
 }
 
-export default function ToolCalc({ tool }: { tool: Tool }) {
+export default function ToolCalc({ tool, initial }: { tool: Tool; initial?: string[] }) {
   const fields = FIELDS[tool];
-  const [vals, setVals] = useState<Record<string, string>>(Object.fromEntries(fields.map((f) => [f.key, f.def])));
+  const [vals, setVals] = useState<Record<string, string>>(Object.fromEntries(fields.map((f, i) => [f.key, initial?.[i] ?? f.def])));
   const out = compute(tool, vals);
   return (
     <div class="card calculator">

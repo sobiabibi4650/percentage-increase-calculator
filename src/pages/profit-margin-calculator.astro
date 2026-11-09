@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -14,15 +15,15 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="Profit Percentage Calculator (Profit Margin)"
+  title="Profit Margin Calculator (Profit Percentage)"
   description="Calculate profit percentage and gross profit margin from cost and selling price. Also shows markup on cost, so you can compare both views of profit."
   path="/profit-margin-calculator"
   faqs={faqs}
-  crumb={{ name: "Profit percentage", path: "/profit-margin-calculator" }}
+  crumb={{ name: "Profit margin", path: "/profit-margin-calculator" }}
   webApp
 >
-  <Crumbs current="Profit percentage" />
-  <h1>Profit Percentage Calculator (Profit Margin)</h1>
+  <Crumbs current="Profit margin" />
+  <h1>Profit Margin Calculator (Profit Percentage)</h1>
   <p class="lede">Enter cost and revenue to get profit margin, profit in dollars, and markup on cost.</p>
   <ToolCalc client:load tool="profit" />
 
@@ -38,6 +39,10 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Losses</h2>
     <p>If cost exceeds revenue, profit and margin turn negative. A $60 cost sold for $40 is a −50% margin.</p>
+  </section>
+  <section>
+    <h2>How to calculate profit margin</h2>
+    <ol class="steps"><li>Subtract the cost from the selling price to get the profit.</li><li>Divide the profit by the selling price (revenue).</li><li>Multiply by 100 to get the profit margin as a percentage.</li></ol>    <p>A bakery sells a cake for $40 that costs $26 to make. Profit is $14, and $14 ÷ $40 × 100 = a 35% profit margin.</p>
   </section>
   <section>
     <h2>Gross, operating, and net margin</h2>

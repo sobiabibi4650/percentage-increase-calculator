@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -14,7 +15,7 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="Percent Error Calculator"
+  title="Percent Error Calculator and Formula"
   description="Find the percent error between a measured and an accepted value, with absolute and signed error and every step shown. Built for lab reports."
   path="/percent-error-calculator"
   faqs={faqs}
@@ -22,13 +23,14 @@ const faqs: FaqItem[] = [
   webApp
 >
   <Crumbs current="Percent error" />
-  <h1>Percent Error Calculator</h1>
+  <h1>Percent Error Calculator and Formula</h1>
   <p class="lede">Enter your measured (experimental) value and the accepted (theoretical) value.</p>
   <ToolCalc client:load tool="error" />
 
   <section>
     <h2>Percent error formula</h2>
     <pre>Percent error = |Measured − Actual| ÷ |Actual| × 100</pre>
+    <p>This percent error equation compares what you measured with the accepted, true value. The vertical bars mean absolute value, so the answer is always positive.</p>
     <p>If you measured gravity as 9.6 m/s² and the accepted value is 9.81, the error is |9.6 − 9.81| = 0.21, and 0.21 ÷ 9.81 × 100 = <strong>2.14%</strong>.</p>
   </section>
   <section>
@@ -38,6 +40,10 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Percent error vs percent difference</h2>
     <p>Percent error compares to a known true value. When neither value is “correct”, use the <a href="/percentage-difference-calculator">percentage difference calculator</a>.</p>
+  </section>
+  <section>
+    <h2>How to calculate percent error</h2>
+    <ol class="steps"><li>Subtract the actual value from your measured value.</li><li>Drop the minus sign, if there is one (take the absolute value).</li><li>Divide by the actual value.</li><li>Multiply by 100 to turn the decimal into a percentage.</li></ol>    <p>Example: you measure a 250 mL flask as holding 245 mL. |245 − 250| = 5, 5 ÷ 250 = 0.02, and 0.02 × 100 = 2% error.</p>
   </section>
   <section>
     <h2>A worked lab example</h2>

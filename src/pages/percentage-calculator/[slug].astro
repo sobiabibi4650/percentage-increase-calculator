@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ToolCalc from "../../components/ToolCalc.tsx";
+import Crumbs from "../../components/Crumbs.astro";
+import Faq from "../../components/Faq.astro";
+import type { FaqItem } from "../../lib/schema";
+import { scores, scoreSlug, gcd, pctText, letterGrade, scoreNotes, type Score } from "../../lib/conversions";
+
+export function getStaticPaths() {
+  return scores.map((s) => ({ params: { slug: scoreSlug(s) }, props: { s } }));
+}
+
+const { s } = Astro.props as { s: Score };
+const { part, whole } = s;
+const pct = (part / whole) * 100;
+const pctStr = pctText(pct);
+const g = gcd(part, whole);
+const simplified = `${part / g}/${whole / g}`;
+const decimal = new Intl.NumberFormat("en-US", { maximumFractionDigits: 4 }).format(part / whole);
+const grade = letterGrade(pct);
+const missed = whole - part;
+const shortcut = 100 % whole === 0 ? 100 / whole : null;
+// how many points are needed for the next letter-grade band (90% A−, 80% B−, 70% C−, 60% D−)
+const nextBand = [60, 70, 80, 90].find((b) => b > pct);
+const pointsForNext = nextBand ? Math.ceil((nextBand / 100) * whole) : null;
+const path = `/percentage-calculator/${scoreSlug(s)}`;
+const rows = Array.from({ length: whole + 1 }, (_, i) => whole - i).filter((i) => Math.abs(i - part) <= 3);
+const notes = scoreNotes[`${part}/${whole}`] ?? [];
+const related = scores.filter((o) => o !== s);
+
+const faqs: FaqItem[] = [
+  { question: `What is ${part} out of ${whole} as a percentage?`, answer: `${part} out of ${whole} is ${pctStr}. Divide ${part} by ${whole} to get ${decimal}, then multiply by 100.` },
+  { question: `What grade is ${part}/${whole}?`, answer: `${pctStr} is a ${grade} on the standard US grading scale (90–100 A, 80–89 B, 70–79 C, 60–69 D, below 60 F). Your school's own cutoffs may differ slightly.` },
+  { question: `What is ${part}/${whole} as a fraction in simplest form?`, answer: g > 1 ? `${part}/${whole} simplifies to ${simplified} by dividing the top and bottom by ${g}.` : `${part}/${whole} is already in simplest form, because ${part} and ${whole} share no common factor other than 1.` },
+];
+if (pointsForNext) faqs.push({ question: `How many out of ${whole} do I need for ${nextBand}%?`, answer: `You need ${pointsForNext} out of ${whole}, which is ${pctText((pointsForNext / whole) * 100)}. That is ${pointsForNext - part} more than ${part}.` });
+---
+
+<BaseLayout
+  title={`${part} Out of ${whole} as a Percentage (${pctStr})`}
+  description={`${part} out of ${whole} is ${pctStr}, a ${grade} on the US grading scale. See the steps, the decimal (${decimal}), the simplified fraction, and a score chart out of ${whole}.`}
+  path={path}
+  faqs={faqs}
+  crumbs={[{ name: "Percentage calculator", path: "/percentage-calculator" }, { name: `${part} out of ${whole}`, path }]}
+>
+  <Crumbs parent={{ name: "Percentage calculator", href: "/percentage-calculator" }} current={`${part} out of ${whole}`} />
+  <h1>{part} Out of {whole} as a Percentage</h1>
+  <p class="answer"><strong>{part} out of {whole} is {pctStr}.</strong> On a test, that is a <strong>{grade}</strong>.</p>
+
+  <dl class="facts">
+    <div><dt>Percentage</dt><dd>{pctStr}</dd></div>
+    <div><dt>Decimal</dt><dd>{decimal}</dd></div>
+    <div><dt>Simplest fraction</dt><dd>{simplified}</dd></div>
+    <div><dt>Letter grade</dt><dd>{grade}</dd></div>
+  </dl>
+
+  <h2 class="calc-title">Try another score</h2>
+  <ToolCalc client:load tool="percentOf" initial={[String(part), String(whole)]} />
+
+  <section>
+    <h2>How to work out {part}/{whole} as a percentage</h2>
+    <ol class="steps">
+      <li>Divide the part by the whole: {part} ÷ {whole} = {decimal}.</li>
+      <li>Multiply by 100: {decimal} × 100 = {pctStr}.</li>
+    </ol>
+    {shortcut && (
+      <p>Shortcut: because {whole} × {shortcut} = 100, you can also multiply both numbers by {shortcut}. {part} × {shortcut} = {part * shortcut}, so {part}/{whole} = {part * shortcut}/100 = {pctStr}.</p>
+    )}
+    <p>
+      Put another way, you missed {missed} of {whole}, which is {pctText((missed / whole) * 100)}. Together the two shares always add up to 100%.
+      {pointsForNext ? ` To reach ${nextBand}%, you would need ${pointsForNext} out of ${whole}.` : " That is already in the top grade band."}
+    </p>
+  </section>
+
+  {notes.length > 0 && (
+    <section>
+      <h2>What {part}/{whole} means for a grade</h2>
+      {notes.map((n) => <p>{n}</p>)}
+    </section>
+  )}
+
+  <section>
+    <h2>Scores near {part} out of {whole}</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Score</th><th>Percentage</th><th>Grade</th></tr></thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr class={r === part ? "current" : undefined} aria-current={r === part ? "true" : undefined}>
+            <td>{r} / {whole}</td><td>{pctText((r / whole) * 100)}</td><td>{letterGrade((r / whole) * 100)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Other common scores</h2>
+    <ul class="link-chips">
+      {related.map((o) => <li><a href={`/percentage-calculator/${scoreSlug(o)}`}>{o.part} out of {o.whole}</a></li>)}
+    </ul>
+  </section>
+
+  <Faq items={faqs} />
+</BaseLayout>

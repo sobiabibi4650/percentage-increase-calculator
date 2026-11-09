@@ -8,7 +8,7 @@ export const calculators: NavLink[] = [
   { href: "/percentage-calculator", label: "Percentage Calculator", blurb: "X% of Y, X is what % of Y", short: "X of Y" },
   { href: "/percent-off-calculator", label: "Percent Off / Discount", blurb: "Sale price and savings", short: "Percent Off" },
   { href: "/markup-calculator", label: "Markup Calculator", blurb: "Cost to selling price", short: "Markup" },
-  { href: "/profit-margin-calculator", label: "Profit Percentage", blurb: "Margin and markup", short: "Profit Margin" },
+  { href: "/profit-margin-calculator", label: "Profit Margin", blurb: "Profit percentage and markup", short: "Profit Margin" },
   { href: "/percent-error-calculator", label: "Percent Error", blurb: "Measured vs actual", short: "Percent Error" },
   { href: "/fraction-to-percent-calculator", label: "Fraction to Percent", blurb: "3/5, 4 1/4, 16/20", short: "Fraction to %" },
   { href: "/margin-of-error-calculator", label: "Margin of Error", blurb: "Surveys and polls", short: "Margin of Error" },

@@ -1,0 +1,18 @@
+---
+// Hub links from a parent calculator to its programmatic answer pages.
+import { scores, fractions, scoreSlug, fractionSlug, fractionLabel, fractionValue, pctText } from "../lib/conversions";
+interface Props { kind: "scores" | "fractions" }
+const { kind } = Astro.props;
+const items = kind === "scores"
+  ? scores.map((s) => ({ href: `/percentage-calculator/${scoreSlug(s)}`, label: `${s.part} out of ${s.whole}`, value: pctText((s.part / s.whole) * 100) }))
+  : fractions.map((f) => ({ href: `/fraction-to-percent-calculator/${fractionSlug(f)}`, label: fractionLabel(f), value: pctText(fractionValue(f) * 100) }));
+const title = kind === "scores" ? "Popular scores as percentages" : "Popular fractions as percents";
+---
+
+<section aria-labelledby={`hub-${kind}`}>
+  <h2 id={`hub-${kind}`}>{title}</h2>
+  <p>Each page has the answer, the working, and a full chart.</p>
+  <ul class="link-chips">
+    {items.map((i) => <li><a href={i.href}>{i.label} <span>= {i.value}</span></a></li>)}
+  </ul>
+</section>

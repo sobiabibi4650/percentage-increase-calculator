@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -14,7 +15,7 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="Win Percentage Calculator"
+  title="Win Percentage Calculator (Win-Loss Record)"
   description="Calculate a team's win percentage from wins, losses, and ties in the .xxx format used in MLB, NBA, and NFL standings, with ties counted as half a win."
   path="/win-percentage-calculator"
   faqs={faqs}
@@ -22,8 +23,8 @@ const faqs: FaqItem[] = [
   webApp
 >
   <Crumbs current="Win percentage" />
-  <h1>Win Percentage Calculator</h1>
-  <p class="lede">Enter a record. Ties count as half a win, the standard used in NFL standings.</p>
+  <h1>Win Percentage Calculator (Win-Loss Record)</h1>
+  <p class="lede">Enter a win-loss record to get the win percentage, also called win rate. Ties count as half a win, the standard used in NFL standings.</p>
   <ToolCalc client:load tool="win" />
 
   <section>
@@ -34,6 +35,10 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Why standings show .600</h2>
     <p>US sports leagues print win percentage as a three-digit decimal with no leading zero. A perfect record is 1.000.</p>
+  </section>
+  <section>
+    <h2>How to calculate win percentage</h2>
+    <p>Add the wins and losses (and ties, if any) to get the games played. Divide the wins by that total. A basketball team at 27–13 has played 40 games, so 27 ÷ 40 = .675, a 67.5% win rate. With ties, add half of each tie to the wins before dividing.</p>
   </section>
   <section>
     <h2>How standings use the number</h2>

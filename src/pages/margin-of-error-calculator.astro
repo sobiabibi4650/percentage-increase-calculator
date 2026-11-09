@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -15,7 +16,7 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="Margin of Error Calculator"
+  title="Margin of Error Calculator and Formula"
   description="Calculate the margin of error for a survey or poll from sample size, proportion, and confidence level, with the formula worked out."
   path="/margin-of-error-calculator"
   faqs={faqs}
@@ -23,7 +24,7 @@ const faqs: FaqItem[] = [
   webApp
 >
   <Crumbs current="Margin of error" />
-  <h1>Margin of Error Calculator</h1>
+  <h1>Margin of Error Calculator and Formula</h1>
   <p class="lede">Enter how many people you surveyed, the share who gave an answer, and your confidence level. The result and the likely range update instantly.</p>
   <ToolCalc client:load tool="moe" />
 
@@ -43,6 +44,14 @@ const faqs: FaqItem[] = [
   <section>
     <h2>What the margin of error does not cover</h2>
     <p>This formula assumes a simple random sample. It does not account for people who refuse to answer, poorly worded questions, or a sample that leans toward one group. Those problems can move a result far more than the margin of error suggests.</p>
+  </section>
+  <section>
+    <h2>What is margin of error?</h2>
+    <p>The margin of error tells you how far a survey result could reasonably be from the true value for the whole population. A poll that reports 54% with a margin of ±3% is saying the real figure is most likely somewhere between 51% and 57%. In plain terms, it is the survey's built-in uncertainty that comes from asking a sample instead of everyone.</p>
+  </section>
+  <section>
+    <h2>How to find margin of error</h2>
+    <ol class="steps"><li>Write the sample proportion as a decimal (52% becomes 0.52).</li><li>Multiply it by one minus itself: 0.52 × 0.48 = 0.2496.</li><li>Divide by the sample size and take the square root.</li><li>Multiply by the z-score for your confidence level (1.96 for 95%).</li><li>Multiply by 100 to read it as a percentage.</li></ol>
   </section>
   <section>
     <h2>Example: a customer satisfaction survey</h2>

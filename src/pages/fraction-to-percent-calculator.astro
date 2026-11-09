@@ -4,6 +4,7 @@ import ToolCalc from "../components/ToolCalc.tsx";
 import Crumbs from "../components/Crumbs.astro";
 import Faq from "../components/Faq.astro";
 import SeeAlso from "../components/SeeAlso.astro";
+import ConversionHub from "../components/ConversionHub.astro";
 import type { FaqItem } from "../lib/schema";
 
 const faqs: FaqItem[] = [
@@ -24,7 +25,7 @@ const faqs: FaqItem[] = [
 >
   <Crumbs current="Fraction to percent" />
   <h1>Fraction to Percent Calculator</h1>
-  <p class="lede">Type a fraction (3/5), a mixed number (4 1/4), or a decimal. The percent appears as you type.</p>
+  <p class="lede">Type a fraction (3/5), a mixed number (4 1/4), or a decimal (0.35). The percent appears as you type.</p>
   <ToolCalc client:load tool="fraction" />
 
   <section>
@@ -35,6 +36,10 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Fractions over 1</h2>
     <p>Improper fractions such as 5/4 or 3/2 give percents above 100% (125% and 150%).</p>
+  </section>
+  <section>
+    <h2>Convert a decimal to a percent</h2>
+    <p>Decimals work too. Multiply by 100, which is the same as moving the decimal point two places to the right: 0.35 becomes 35%, 0.075 becomes 7.5%, and 1.2 becomes 120%. Type the decimal into the box above to check.</p>
   </section>
   <section>
     <h2>Repeating decimals</h2>
@@ -76,6 +81,7 @@ const faqs: FaqItem[] = [
       </tbody>
     </table></div>
   </section>
+  <ConversionHub kind="fractions" />
   <Faq items={faqs} />
   <SeeAlso />
 </BaseLayout>
