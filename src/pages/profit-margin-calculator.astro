@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "What is a good profit margin?", answer: "It depends on the industry. Grocery stores often run net margins of 1–3%, while software companies can exceed 20%." },
+  { question: "Is profit percentage calculated on cost or selling price?", answer: "Business margin uses selling price. Many school problems use cost. This calculator shows both." },
+  { question: "How do I find selling price from margin?", answer: "Price = Cost ÷ (1 − margin). For a 25% margin on a $30 cost, charge $30 ÷ 0.75 = $40." }
+];
+---
+
+<BaseLayout
+  title="Profit Percentage Calculator (Profit Margin)"
+  description="Calculate profit percentage and gross profit margin from cost and revenue, plus markup on cost."
+  path="/profit-margin-calculator"
+  faqs={faqs}
+  crumb={{ name: "Profit percentage", path: "/profit-margin-calculator" }}
+  webApp
+>
+  <Crumbs current="Profit percentage" />
+  <h1>Profit Percentage Calculator (Profit Margin)</h1>
+  <p class="lede">Enter cost and revenue to get profit margin, profit in dollars, and markup on cost.</p>
+  <ToolCalc client:load tool="profit" />
+
+  <section>
+    <h2>Profit margin formula</h2>
+    <pre>Profit margin % = (Revenue − Cost) ÷ Revenue × 100</pre>
+    <p>Selling for $60 something that cost $40 leaves $20 profit, which is 33.33% of the $60 revenue.</p>
+  </section>
+  <section>
+    <h2>Profit percentage on cost</h2>
+    <p>Some textbooks define profit percentage on cost instead: $20 ÷ $40 = 50%. That figure is the markup, shown under the result so you can use whichever your class or business expects.</p>
+  </section>
+  <section>
+    <h2>Losses</h2>
+    <p>If cost exceeds revenue, profit and margin turn negative. A $60 cost sold for $40 is a −50% margin.</p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

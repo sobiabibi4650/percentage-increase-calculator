@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "What is 16 out of 20 as a percentage?", answer: "16 ÷ 20 = 0.8, so 16 out of 20 is 80%." },
+  { question: "What is 24/30 as a percentage?", answer: "24 ÷ 30 = 0.8, so 24/30 is 80%." },
+  { question: "What is 11 out of 15 as a percentage?", answer: "11 ÷ 15 = 0.7333…, so 11 out of 15 is about 73.33%." },
+  { question: "What percent of 42 is 29.4?", answer: "29.4 ÷ 42 = 0.7, so 29.4 is 70% of 42." }
+];
+---
+
+<BaseLayout
+  title="Percentage Calculator: X Out of Y as a Percent"
+  description="Find what percent X is of Y, like 16 out of 20 or 24/30, with the working shown. Free, instant, and private."
+  path="/percentage-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percentage calculator", path: "/percentage-calculator" }}
+  webApp
+>
+  <Crumbs current="Percentage calculator" />
+  <h1>Percentage Calculator: X Out of Y as a Percent</h1>
+  <p class="lede">Type a part and a whole. The percent and every step update as you type.</p>
+  <ToolCalc client:load tool="percentOf" />
+
+  <section>
+    <h2>How to turn “X out of Y” into a percentage</h2>
+    <p>Divide the part by the whole, then multiply by 100. For 16 out of 20: 16 ÷ 20 = 0.8, and 0.8 × 100 = <strong>80%</strong>.</p>
+    <p>The same rule answers “14 of 25 is what percent” (56%) and “15 as a percentage of 20” (75%). The whole always goes on the bottom.</p>
+  </section>
+  <section>
+    <h2>How to calculate the percentage of a number</h2>
+    <p>To find X% of Y, turn the percent into a decimal and multiply: 25% of 80 is 0.25 × 80 = 20. For quick X% of Y questions, use the <a href="/add-percentage-calculator">add a percentage calculator</a> or multiply by the decimal on any phone.</p>
+  </section>
+  <section>
+    <h2>Common mistakes</h2>
+    <ul class="plain-list"><li>Dividing the whole by the part (20 ÷ 16 = 125%, not 80%).</li><li>Forgetting to multiply by 100, which leaves 0.8 instead of 80%.</li><li>Rounding too early on repeating decimals such as 2/3 (66.67%).</li></ul>
+  </section>
+  <section>
+    <h2>Quick answers: common scores as percentages</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Score</th><th>Fraction</th><th>Percent</th></tr></thead>
+      <tbody>
+        <tr><td>11 out of 15</td><td>11/15</td><td>73.33%</td></tr>
+        <tr><td>14 out of 20</td><td>14/20</td><td>70%</td></tr>
+        <tr><td>15 out of 20</td><td>15/20</td><td>75%</td></tr>
+        <tr><td>16 out of 20</td><td>16/20</td><td>80%</td></tr>
+        <tr><td>17 out of 20</td><td>17/20</td><td>85%</td></tr>
+        <tr><td>18 out of 20</td><td>18/20</td><td>90%</td></tr>
+        <tr><td>14 out of 25</td><td>14/25</td><td>56%</td></tr>
+        <tr><td>20 out of 25</td><td>20/25</td><td>80%</td></tr>
+        <tr><td>24 out of 30</td><td>24/30</td><td>80%</td></tr>
+        <tr><td>25 out of 30</td><td>25/30</td><td>83.33%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

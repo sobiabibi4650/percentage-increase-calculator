@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+---
+
+<BaseLayout
+  title="Disclaimer"
+  description="The percentage calculators are math tools for estimates and education, not financial, tax, payroll, or legal advice."
+  path="/disclaimer"
+  crumb={{ name: "Disclaimer", path: "/disclaimer" }}
+>
+  <Crumbs current="Disclaimer" />
+  <h1>Disclaimer</h1>
+  <p class="lede">Results are for information and education only.</p>
+
+  <section>
+    <h2>Not professional advice</h2>
+    <p>Nothing on this site is financial, tax, payroll, investment, or legal advice. Salary figures are gross illustrations before taxes, benefits, and deductions. Price examples ignore sales tax unless stated.</p>
+  </section>
+  <section>
+    <h2>Accuracy and rounding</h2>
+    <p>Results are rounded for display, so totals may differ by a cent or a fraction of a percent from figures in a spreadsheet or an official statement. Always confirm numbers that matter with the original source or a qualified professional.</p>
+  </section>
+  <section>
+    <h2>External links</h2>
+    <p>Links to outside sites are offered as references. We are not responsible for their content or availability. Read our <a href="/terms">terms of use</a> and <a href="/privacy">privacy policy</a> for more.</p>
+  </section>
+  <SeeAlso />
+</BaseLayout>

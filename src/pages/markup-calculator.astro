@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "What is a 100% markup?", answer: "The selling price is double the cost. A $25 cost sells for $50." },
+  { question: "Can markup be more than 100%?", answer: "Yes. Markup has no upper limit, while margin can never reach 100%." },
+  { question: "How do I convert markup to margin?", answer: "Margin = Markup ÷ (1 + Markup). A 50% markup is 0.5 ÷ 1.5 = 33.33% margin." }
+];
+---
+
+<BaseLayout
+  title="Markup Calculator: Markup Percentage From Cost and Price"
+  description="Calculate markup percentage, profit, and gross margin from cost and selling price. Clear formulas, no sign-up."
+  path="/markup-calculator"
+  faqs={faqs}
+  crumb={{ name: "Markup", path: "/markup-calculator" }}
+  webApp
+>
+  <Crumbs current="Markup" />
+  <h1>Markup Calculator: Markup Percentage From Cost and Price</h1>
+  <p class="lede">Enter what an item costs you and what you sell it for. Markup, margin, and profit update live.</p>
+  <ToolCalc client:load tool="markup" />
+
+  <section>
+    <h2>Markup formula</h2>
+    <pre>Markup % = (Selling price − Cost) ÷ Cost × 100</pre>
+    <p>A product that costs $40 and sells for $60 has $20 of profit. $20 ÷ $40 = 0.5, a <strong>50% markup</strong>.</p>
+  </section>
+  <section>
+    <h2>Markup vs margin</h2>
+    <p>Markup divides profit by <em>cost</em>. Margin divides profit by <em>price</em>. The same $40 → $60 sale is a 50% markup but only a 33.33% margin. Mixing them up is the most common pricing error.</p>
+  </section>
+  <section>
+    <h2>Price from a target markup</h2>
+    <p>Selling price = Cost × (1 + markup). To mark up a $40 item by 60%, charge $40 × 1.6 = $64.</p>
+  </section>
+  <section>
+    <h2>Markup to margin conversion</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Markup</th><th>Gross margin</th></tr></thead>
+      <tbody>
+        <tr><td>10%</td><td>9.09%</td></tr>
+        <tr><td>20%</td><td>16.67%</td></tr>
+        <tr><td>25%</td><td>20.00%</td></tr>
+        <tr><td>30%</td><td>23.08%</td></tr>
+        <tr><td>40%</td><td>28.57%</td></tr>
+        <tr><td>50%</td><td>33.33%</td></tr>
+        <tr><td>75%</td><td>42.86%</td></tr>
+        <tr><td>100%</td><td>50.00%</td></tr>
+        <tr><td>150%</td><td>60.00%</td></tr>
+        <tr><td>200%</td><td>66.67%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

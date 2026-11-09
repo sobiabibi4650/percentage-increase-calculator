@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "How do I calculate 20% off?", answer: "Multiply the price by 0.8. A $50 item at 20% off costs $40." },
+  { question: "How do you find the percent off from two prices?", answer: "Subtract the sale price from the original, divide by the original, and multiply by 100. $80 to $60 is 25% off. The percentage decrease calculator does this directly." },
+  { question: "Is 30% off then 20% off the same as 50% off?", answer: "No. You pay 0.7 × 0.8 = 56% of the price, a 44% total discount." }
+];
+---
+
+<BaseLayout
+  title="Percent Off Calculator (Discount & Sale Price)"
+  description="Work out the sale price and how much you save from any percent-off discount. Shows the math step by step."
+  path="/percent-off-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percent off", path: "/percent-off-calculator" }}
+  webApp
+>
+  <Crumbs current="Percent off" />
+  <h1>Percent Off Calculator (Discount & Sale Price)</h1>
+  <p class="lede">Enter the original price and the discount. See the sale price and your savings instantly.</p>
+  <ToolCalc client:load tool="off" />
+
+  <section>
+    <h2>How do you find percent off?</h2>
+    <p>Multiply the original price by the discount as a decimal to get the savings, then subtract. $80 at 25% off: $80 × 0.25 = $20 saved, so you pay <strong>$60</strong>.</p>
+    <p>A faster shortcut: multiply by (100 − discount)%. 25% off means you pay 75%, and $80 × 0.75 = $60.</p>
+  </section>
+  <section>
+    <h2>Stacked discounts are not added</h2>
+    <p>An extra 10% off a 25%-off price is not 35% off. You pay 0.75 × 0.90 = 0.675 of the price, which is a 32.5% total discount. Run the calculator twice to stack codes.</p>
+  </section>
+  <section>
+    <h2>Sales tax</h2>
+    <p>Most US states charge sales tax on the discounted price, not the original. Add your local rate after finding the sale price.</p>
+  </section>
+  <section>
+    <h2>Sale price chart</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Discount</th><th>On $50</th><th>On $100</th></tr></thead>
+      <tbody>
+        <tr><td>10% off</td><td>$45.00</td><td>$90.00</td></tr>
+        <tr><td>15% off</td><td>$42.50</td><td>$85.00</td></tr>
+        <tr><td>20% off</td><td>$40.00</td><td>$80.00</td></tr>
+        <tr><td>25% off</td><td>$37.50</td><td>$75.00</td></tr>
+        <tr><td>30% off</td><td>$35.00</td><td>$70.00</td></tr>
+        <tr><td>40% off</td><td>$30.00</td><td>$60.00</td></tr>
+        <tr><td>50% off</td><td>$25.00</td><td>$50.00</td></tr>
+        <tr><td>60% off</td><td>$20.00</td><td>$40.00</td></tr>
+        <tr><td>70% off</td><td>$15.00</td><td>$30.00</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

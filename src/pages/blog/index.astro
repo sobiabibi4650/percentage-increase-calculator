@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Crumbs from "../../components/Crumbs.astro";
+import { posts } from "../../lib/posts";
+---
+
+<BaseLayout title="Percentage Math Blog: Guides and Examples" description="Plain-English guides to percent off, markup vs margin, percentage change, and everyday percentage math, with worked examples." path="/blog" crumb={{ name: "Blog", path: "/blog" }}>
+  <Crumbs current="Blog" />
+  <h1>Percentage Math Blog</h1>
+  <p class="lede">Short, practical guides with real numbers. Each one links to a calculator so you can check your own figures.</p>
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li class="post-card"><a href={`/blog/${p.slug}`}>
+        <span class="meta"><time datetime={p.published}>{new Date(p.published).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</time> · {p.readMins} min read</span>
+        <h2>{p.title}</h2>
+        <p>{p.description}</p>
+      </a></li>
+    ))}
+  </ul>
+</BaseLayout>

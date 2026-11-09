@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Report a calculation error, suggest a new percentage calculator, or ask a question about the site."
+  path="/contact"
+  crumb={{ name: "Contact", path: "/contact" }}
+>
+  <Crumbs current="Contact" />
+  <h1>Contact Us</h1>
+  <p class="lede">Found a bug, a confusing explanation, or a calculator we should add? We read every message.</p>
+
+  <section>
+    <h2>Email</h2>
+    <p>Write to <a href="mailto:contact@percentageincreasecalculator.us">contact@percentageincreasecalculator.us</a>. We usually reply within three business days.</p>
+  </section>
+  <section>
+    <h2>Reporting a calculation error</h2>
+    <p>Please include the page address (copy the link so your numbers are included), the result you saw, and the result you expected. That lets us reproduce the issue quickly.</p>
+  </section>
+  <section>
+    <h2>What we cannot help with</h2>
+    <p>We cannot give tax, payroll, legal, or investment advice. For those questions, talk to a qualified professional. See our <a href="/disclaimer">disclaimer</a>.</p>
+  </section>
+  <SeeAlso />
+</BaseLayout>

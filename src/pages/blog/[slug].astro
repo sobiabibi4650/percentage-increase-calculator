@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Crumbs from "../../components/Crumbs.astro";
+import SeeAlso from "../../components/SeeAlso.astro";
+import { posts, type Post } from "../../lib/posts";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props as { post: Post };
+const path = `/blog/${post.slug}`;
+---
+
+<BaseLayout title={post.title} description={post.description} path={path} article={{ published: post.published }} crumbs={[{ name: "Blog", path: "/blog" }, { name: post.title, path }]}>
+  <Crumbs parent={{ name: "Blog", href: "/blog" }} current={post.title} />
+  <article>
+    <h1>{post.title}</h1>
+    <p class="meta"><time datetime={post.published}>{new Date(post.published).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</time> · {post.readMins} min read · By the PercentageIncrease.us team</p>
+    <Fragment set:html={post.html} />
+    <div class="cta"><p>Try it with your own numbers.</p><a class="button" href={post.tool.href}>Open the {post.tool.label.toLowerCase()}</a></div>
+  </article>
+  <SeeAlso />
+</BaseLayout>

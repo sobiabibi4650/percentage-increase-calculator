@@ -1,14 +1,12 @@
 ---
-interface Props {
-  current: string;
-}
-
-const { current } = Astro.props;
+interface Props { current: string; parent?: { name: string; href: string } }
+const { current, parent } = Astro.props;
 ---
 
 <nav class="crumbs" aria-label="Breadcrumb">
   <ol>
     <li><a href="/">Home</a></li>
+    {parent && <li><a href={parent.href}>{parent.name}</a></li>}
     <li><span aria-current="page">{current}</span></li>
   </ol>
 </nav>

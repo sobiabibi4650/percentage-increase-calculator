@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "How do ties affect win percentage?", answer: "Most leagues, including the NFL, count a tie as half a win and half a loss." },
+  { question: "Is win percentage the same as winning percentage?", answer: "Yes, the terms are used interchangeably." },
+  { question: "What is a .500 record?", answer: "Exactly as many wins as losses, such as 41–41." }
+];
+---
+
+<BaseLayout
+  title="Win Percentage Calculator"
+  description="Calculate win percentage from wins, losses, and ties, in the .xxx format used by MLB, NBA, and NFL standings."
+  path="/win-percentage-calculator"
+  faqs={faqs}
+  crumb={{ name: "Win percentage", path: "/win-percentage-calculator" }}
+  webApp
+>
+  <Crumbs current="Win percentage" />
+  <h1>Win Percentage Calculator</h1>
+  <p class="lede">Enter a record. Ties count as half a win, the standard used in NFL standings.</p>
+  <ToolCalc client:load tool="win" />
+
+  <section>
+    <h2>Win percentage formula</h2>
+    <pre>Win % = (Wins + Ties ÷ 2) ÷ Games played</pre>
+    <p>A 12–8 record: 12 ÷ 20 = <strong>.600</strong>, or 60%.</p>
+  </section>
+  <section>
+    <h2>Why standings show .600</h2>
+    <p>US sports leagues print win percentage as a three-digit decimal with no leading zero. A perfect record is 1.000.</p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

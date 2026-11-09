@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
+import Logo from "../components/Logo.astro";
+import { calculators, guides } from "../lib/nav";
 import {
   absoluteUrl,
   breadcrumbSchema,
@@ -19,14 +21,25 @@ interface Props {
   crumb?: Crumb;
   webApp?: boolean;
   noindex?: boolean;
+  article?: { published: string; modified?: string };
+  crumbs?: Crumb[];
 }
 
-const { title, description, path, faqs = [], crumb, webApp = false, noindex = false } = Astro.props;
+const { title, description, path, faqs = [], crumb, webApp = false, noindex = false, article, crumbs } = Astro.props;
 const canonical = absoluteUrl(path);
+const fullTitle = path === "/" || title.length > 36 ? title : `${title} | PercentageIncrease.us`;
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const siteSchema = path === "/" ? { "@context": "https://schema.org", "@graph": [
+  { "@type": "WebSite", name: "PercentageIncrease.us", url: absoluteUrl("/"), inLanguage: "en-US" },
+  { "@type": "Organization", name: "PercentageIncrease.us", url: absoluteUrl("/"), logo: absoluteUrl("/logo.svg") },
+] } : null;
+const articleSchema = article ? { "@context": "https://schema.org", "@type": "Article", headline: title, description, datePublished: article.published, dateModified: article.modified ?? article.published, mainEntityOfPage: canonical, author: { "@type": "Organization", name: "PercentageIncrease.us" }, publisher: { "@type": "Organization", name: "PercentageIncrease.us", logo: { "@type": "ImageObject", url: absoluteUrl("/logo.svg") } } } : null;
 const graph = [
   webApp ? webApplicationSchema(title, description, path) : null,
   faqs.length ? faqSchema(faqs) : null,
-  crumb ? breadcrumbSchema([crumb]) : null,
+  crumbs ? breadcrumbSchema(crumbs) : crumb ? breadcrumbSchema([crumb]) : null,
+  siteSchema,
+  articleSchema,
 ].filter(Boolean);
 ---
 
@@ -35,11 +48,11 @@ const graph = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? "article" : "website"} />
     <meta property="og:site_name" content="Percentage Increase Calculator" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content={canonical} />
@@ -50,17 +63,31 @@ const graph = [
     <meta name="twitter:description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <meta name="theme-color" content="#123c78" />
+    <meta name="theme-color" content="#1d4ed8" />
     {graph.map((entry) => <script type="application/ld+json" set:html={jsonLd(entry)} />)}
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
     <header class="site-header">
-      <div class="wrap">
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true">%</span>
-          <span>Percentage Increase Calculator</span>
+      <div class="wrap wide header-row">
+        <a class="brand" href="/" aria-label="PercentageIncrease.us home">
+          <Logo />
+          <span class="brand-text">Percentage<b>Increase</b><small>.us</small></span>
         </a>
+        <details class="menu">
+          <summary aria-label="Open menu"><span class="menu-label">Calculators</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></summary>
+          <div class="menu-panel">
+            <ul class="menu-grid">
+              {calculators.map((l) => <li><a href={l.href} aria-current={l.href === current ? "page" : undefined}><strong>{l.label}</strong><span>{l.blurb}</span></a></li>)}
+            </ul>
+            <div class="menu-guides">{guides.map((l) => <a href={l.href}>{l.label}</a>)}</div>
+          </div>
+        </details>
+        <nav class="top-links" aria-label="Primary">
+          <a href="/percent-change-calculator">Percent change</a>
+          <a href="/percentage-calculator">Percentage</a>
+          <a href="/blog">Blog</a>
+        </nav>
       </div>
     </header>
     <main id="content">
@@ -69,5 +96,10 @@ const graph = [
       </div>
     </main>
     <Footer />
+    <script>
+      const menu = document.querySelector<HTMLDetailsElement>(".menu");
+      document.addEventListener("click", (e) => { if (menu?.open && !menu.contains(e.target as Node)) menu.open = false; });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu?.open) { menu.open = false; menu.querySelector("summary")?.focus(); } });
+    </script>
   </body>
 </html>

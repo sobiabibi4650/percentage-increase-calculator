@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+---
+
+<BaseLayout
+  title="Terms of Use"
+  description="The terms that apply when you use the free percentage calculators on percentageincreasecalculator.us."
+  path="/terms"
+  crumb={{ name: "Terms", path: "/terms" }}
+>
+  <Crumbs current="Terms" />
+  <h1>Terms of Use</h1>
+  <p class="lede">By using this site you agree to these terms. They are short and written in plain English.</p>
+
+  <section>
+    <h2>Use of the calculators</h2>
+    <p>The calculators are free for personal, educational, and commercial use. You may link to any page and share calculator links. You may not copy the site wholesale, scrape it at a rate that disrupts service, or present its content as your own.</p>
+  </section>
+  <section>
+    <h2>No warranty</h2>
+    <p>The site is provided "as is". We work to keep every result accurate, but we do not guarantee that the tools are error-free or always available. Check important figures independently before relying on them.</p>
+  </section>
+  <section>
+    <h2>Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, percentageincreasecalculator.us is not liable for any loss or damage arising from use of, or inability to use, the site or its results.</p>
+  </section>
+  <section>
+    <h2>Third-party links and changes</h2>
+    <p>Links to other websites are provided for convenience; we do not control their content. We may update these terms at any time, and the current version will always be on this page. Questions go to our <a href="/contact">contact page</a>. These terms are governed by the laws of the United States.</p>
+  </section>
+  <SeeAlso />
+</BaseLayout>

@@ -1,18 +1,19 @@
 ---
+import Logo from "./Logo.astro";
+import { calculators, guides, company } from "../lib/nav";
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>
-      Math utility only. This site does not give tax, payroll, legal, or financial advice. Salary figures are gross illustrations before taxes and deductions.
-    </p>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="/privacy">Privacy</a>
-      <a href="/percentage-increase-formula">Formula</a>
-      <a href="/how-to-calculate-percentage-increase">How to calculate</a>
-      <a href="/percentage-difference-calculator">Percentage difference</a>
-    </nav>
-    <p>© {year} percentageincreasecalculator.us</p>
+  <div class="wrap wide footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/"><Logo size={32} /><span class="brand-text">Percentage<b>Increase</b><small>.us</small></span></a>
+      <p>Free, private percentage calculators. Math runs in your browser. Not tax, payroll, legal, or financial advice.</p>
+    </div>
+    <nav aria-label="Calculators"><h2>Calculators</h2><ul>{calculators.slice(0, 8).map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul></nav>
+    <nav aria-label="More calculators"><h2>More tools</h2><ul>{calculators.slice(8).map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul></nav>
+    <nav aria-label="Guides and company"><h2>Guides</h2><ul>{guides.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      <h2>Company</h2><ul>{company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul></nav>
   </div>
+  <div class="wrap wide footer-base"><p>© {year} percentageincreasecalculator.us · All rights reserved.</p></div>
 </footer>

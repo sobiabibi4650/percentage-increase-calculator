@@ -1,28 +1,12 @@
 ---
-const links = [
-  { href: "/", label: "Percentage increase calculator" },
-  { href: "/percent-change-calculator", label: "Percent change calculator" },
-  { href: "/percentage-decrease-calculator", label: "Percentage decrease calculator" },
-  { href: "/percentage-difference-calculator", label: "Percentage difference calculator" },
-  { href: "/add-percentage-calculator", label: "Add a percentage" },
-  { href: "/reverse-percentage-calculator", label: "Reverse a percentage" },
-  { href: "/salary-increase-calculator", label: "Salary increase calculator" },
-  { href: "/price-increase-calculator", label: "Price increase calculator" },
-  { href: "/percentage-increase-formula", label: "Percentage increase formula" },
-  { href: "/how-to-calculate-percentage-increase", label: "How to calculate it" },
-  { href: "/excel-percentage-increase", label: "Excel and Google Sheets" },
-  { href: "/percentage-points-vs-percentage-increase", label: "Percentage points vs increase" },
-];
-
+import { calculators } from "../lib/nav";
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
-const visible = links.filter((link) => link.href !== current);
+const visible = calculators.filter((l) => l.href !== current);
 ---
 
 <section class="see-also" aria-labelledby="see-also-heading">
-  <h2 id="see-also-heading">Related pages</h2>
-  <ul>
-    {visible.map((link) => (
-      <li><a href={link.href}>{link.label}</a></li>
-    ))}
+  <h2 id="see-also-heading">More percentage calculators</h2>
+  <ul class="tool-grid">
+    {visible.map((l) => <li><a href={l.href}><strong>{l.label}</strong><span>{l.blurb}</span></a></li>)}
   </ul>
 </section>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "Can percent error be negative?", answer: "Signed percent error can be. The standard formula uses absolute value, so the result is positive." },
+  { question: "What is an acceptable percent error?", answer: "In many school labs under 5% is considered good, but the threshold depends on the experiment." },
+  { question: "Why can't the actual value be zero?", answer: "The formula divides by the actual value, and division by zero is undefined." }
+];
+---
+
+<BaseLayout
+  title="Percent Error Calculator"
+  description="Find percent error between a measured and an actual value, with absolute and signed error and full working."
+  path="/percent-error-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percent error", path: "/percent-error-calculator" }}
+  webApp
+>
+  <Crumbs current="Percent error" />
+  <h1>Percent Error Calculator</h1>
+  <p class="lede">Enter your measured (experimental) value and the accepted (theoretical) value.</p>
+  <ToolCalc client:load tool="error" />
+
+  <section>
+    <h2>Percent error formula</h2>
+    <pre>Percent error = |Measured − Actual| ÷ |Actual| × 100</pre>
+    <p>If you measured gravity as 9.6 m/s² and the accepted value is 9.81, the error is |9.6 − 9.81| = 0.21, and 0.21 ÷ 9.81 × 100 = <strong>2.14%</strong>.</p>
+  </section>
+  <section>
+    <h2>Signed vs absolute percent error</h2>
+    <p>Lab reports usually want the absolute value. The signed error shows direction: negative means your measurement came in low.</p>
+  </section>
+  <section>
+    <h2>Percent error vs percent difference</h2>
+    <p>Percent error compares to a known true value. When neither value is “correct”, use the <a href="/percentage-difference-calculator">percentage difference calculator</a>.</p>
+  </section>
+
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

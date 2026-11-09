@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Crumbs from "../components/Crumbs.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+---
+
+<BaseLayout
+  title="About Us"
+  description="Who runs percentageincreasecalculator.us, how the calculators are built, and how the math is checked."
+  path="/about"
+  crumb={{ name: "About", path: "/about" }}
+>
+  <Crumbs current="About" />
+  <h1>About Us</h1>
+  <p class="lede">Free, fast percentage calculators for everyday questions about prices, pay, and change over time.</p>
+
+  <section>
+    <h2>What this site does</h2>
+    <p>percentageincreasecalculator.us is a small set of focused tools: percentage increase, decrease, difference, percent change, reverse percentages, salary raises, and price changes. Each page answers one question and shows the formula behind the answer.</p>
+  </section>
+  <section>
+    <h2>How the math is checked</h2>
+    <p>Every calculator uses the same shared formula library, which is covered by automated tests for edge cases such as zero starting values, negative numbers, and rounding. Worked examples on each page are generated from that same code, so the explanation and the result always agree.</p>
+  </section>
+  <section>
+    <h2>Independent and ad-light</h2>
+    <p>The site has no accounts and no tracking scripts. Calculations run in your browser. If you spot an error or want a new calculator, please <a href="/contact">contact us</a>.</p>
+  </section>
+  <SeeAlso />
+</BaseLayout>
