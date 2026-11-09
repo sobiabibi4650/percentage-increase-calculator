@@ -75,7 +75,7 @@ const graph = [
           <span class="brand-text">Percentage<b>Increase</b><small>.us</small></span>
         </a>
         <details class="menu">
-          <summary aria-label="Open menu"><span class="menu-label">Calculators</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></summary>
+          <summary><span class="menu-label">Calculators</span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></summary>
           <div class="menu-panel">
             <ul class="menu-grid">
               {calculators.map((l) => <li><a href={l.href} aria-current={l.href === current ? "page" : undefined}><strong>{l.label}</strong><span>{l.blurb}</span></a></li>)}

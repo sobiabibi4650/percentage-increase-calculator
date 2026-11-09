@@ -1,0 +1,14 @@
+{
+  // Static-assets-only Worker: no server code runs, so requests are free and unlimited.
+  "name": "percentage-increase-calculator",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash"
+  },
+  "routes": [
+    { "pattern": "percentageincreasecalculator.us", "custom_domain": true },
+    { "pattern": "www.percentageincreasecalculator.us", "custom_domain": true }
+  ]
+}

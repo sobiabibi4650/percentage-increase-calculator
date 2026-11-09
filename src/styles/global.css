@@ -510,7 +510,7 @@ details p {
   .brand-text small { display: none; }
   .menu-panel { position: fixed; left: 16px; right: 16px; top: 68px; width: auto; max-height: calc(100vh - 90px); overflow: auto; }
 }
-@media (max-width: 330px) { .menu-label { display: none; } }
+
 .crumbs span[aria-current] { max-width: 60vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
 .crumbs ol { flex-wrap: nowrap; }
 

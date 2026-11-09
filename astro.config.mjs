@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://percentageincreasecalculator.us",
   trailingSlash: "never",
+  build: { inlineStylesheets: "always" },
   integrations: [
     preact(),
     sitemap({
