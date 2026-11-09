@@ -21,11 +21,11 @@ export const calculators: NavLink[] = [
 ];
 
 export const guides: NavLink[] = [
-  { href: "/percentage-increase-formula", label: "Percentage increase formula" },
-  { href: "/how-to-calculate-percentage-increase", label: "How to calculate percentage increase" },
-  { href: "/excel-percentage-increase", label: "Percentage increase in Excel" },
-  { href: "/percentage-points-vs-percentage-increase", label: "Percentage points vs percent" },
-  { href: "/blog", label: "Blog" },
+  { href: "/percentage-increase-formula", label: "Percentage increase formula", short: "Formula" },
+  { href: "/how-to-calculate-percentage-increase", label: "How to calculate percentage increase", short: "How to calculate" },
+  { href: "/excel-percentage-increase", label: "Percentage increase in Excel", short: "Excel & Sheets" },
+  { href: "/percentage-points-vs-percentage-increase", label: "Percentage points vs percent", short: "Points vs percent" },
+  { href: "/blog", label: "Blog", short: "Blog" },
 ];
 
 export const company: NavLink[] = [

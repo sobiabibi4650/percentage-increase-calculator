@@ -81,7 +81,10 @@ const graph = [
             <ul class="menu-grid">
               {calculators.map((l) => <li><a href={l.href} aria-current={l.href === current ? "page" : undefined}><strong>{l.label}</strong><span>{l.blurb}</span></a></li>)}
             </ul>
-            <div class="menu-guides">{guides.map((l) => <a href={l.href}>{l.label}</a>)}</div>
+            <div class="menu-guides">
+              <p class="menu-guides-title">Guides</p>
+              <ul>{guides.map((l) => <li><a href={l.href} aria-current={l.href === current ? "page" : undefined}>{l.short}</a></li>)}</ul>
+            </div>
           </div>
         </details>
         <nav class="top-links" aria-label="Guides">

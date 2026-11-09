@@ -674,3 +674,20 @@ button.secondary:hover, a.secondary:hover { background: var(--brand-soft); color
 .site-footer .brand-text b { color: var(--footer-accent); }
 .site-footer .brand-text small { color: var(--footer-muted); }
 .site-footer :focus-visible { outline-color: var(--footer-accent); }
+
+/* ---------- menu: labelled Guides section, styled like the calculator grid ---------- */
+.menu-guides { display: flex; align-items: center; gap: 10px 14px; flex-wrap: wrap; margin-top: 8px; padding: 12px 10px 4px; border-top: 1px solid var(--line); font-size: .9rem; }
+.menu-guides-title { margin: 0; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.menu-guides ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.menu-guides a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; background: var(--soft); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .86rem; }
+.menu-guides a::before { content: ""; width: 12px; height: 12px; flex: none; background: var(--muted); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.menu-guides a:hover, .menu-guides a[aria-current="page"] { background: var(--brand-soft); color: var(--brand); }
+.menu-guides a:hover::before, .menu-guides a[aria-current="page"]::before { background: var(--brand); }
+
+/* Phone menu: two compact columns so all calculators fit in about one screen */
+@media (max-width: 560px) {
+  .menu-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .menu-grid a { padding: 9px 8px; min-height: 44px; align-content: center; }
+  .menu-grid strong { font-size: .88rem; line-height: 1.25; }
+  .menu-grid span { display: none; }
+}
