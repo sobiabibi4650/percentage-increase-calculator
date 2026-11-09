@@ -219,9 +219,9 @@ export default function Calculator({
           "The original value is undefined when the change is exactly −100%. A −100% change means the new value is 0 for every starting number, so there is no single original.";
         formula = `${formatAmount(parsed.newValue, display)} ÷ (1 + (−100) ÷ 100) is undefined`;
       } else {
-        const kind = directionOf(parsed.percent);
-        direction = kind ? directionLabel(kind) : "Undefined";
-        directionClass = kind ?? "undefined";
+        // Reverse mode answers "what was the original?", so label the value itself, not the change.
+        direction = "Original value";
+        directionClass = "no-change";
         primary = formatAmount(original, display === "currency" || showPayPeriods ? "currency" : display);
         detail = `The new figure is ${formatAmount(parsed.newValue, display === "currency" || showPayPeriods ? "currency" : display)} after a ${formatPercent(parsed.percent)} change.`;
         formula = `${formatAmount(parsed.newValue, display === "currency" || showPayPeriods ? "currency" : "number")} ÷ (1 + ${formatNumber(parsed.percent)} ÷ 100) = ${formatAmount(original, display === "currency" || showPayPeriods ? "currency" : "number")}`;

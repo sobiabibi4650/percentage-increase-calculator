@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SeeAlso from "../components/SeeAlso.astro";
 ---
 
 <BaseLayout
@@ -9,12 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   noindex
 >
   <h1>Page not found</h1>
-  <p class="lede">That address is not on this site. The calculators below are.</p>
-  <ul class="examples">
-    <li><a href="/">Percentage increase calculator</a></li>
-    <li><a href="/percent-change-calculator">Percent change calculator</a></li>
-    <li><a href="/percentage-difference-calculator">Percentage difference calculator</a></li>
-    <li><a href="/salary-increase-calculator">Salary increase calculator</a></li>
-    <li><a href="/price-increase-calculator">Price increase calculator</a></li>
-  </ul>
+  <p class="lede">That address is not on this site. Pick a calculator below, or start from the home page.</p>
+  <p><a class="button" href="/">Go to the calculator</a></p>
+  <SeeAlso />
 </BaseLayout>

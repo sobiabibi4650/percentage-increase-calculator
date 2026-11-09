@@ -84,9 +84,9 @@ const graph = [
           </div>
         </details>
         <nav class="top-links" aria-label="Primary">
-          <a href="/percent-change-calculator">Percent change</a>
-          <a href="/percentage-calculator">Percentage</a>
-          <a href="/blog">Blog</a>
+          <a href="/percent-change-calculator" aria-current={current === "/percent-change-calculator" || (current.startsWith("/percent-change-calculator/") ) ? "page" : undefined}>Percent change</a>
+          <a href="/percentage-calculator" aria-current={current === "/percentage-calculator" || (current.startsWith("/percentage-calculator/") ) ? "page" : undefined}>Percentage</a>
+          <a href="/blog" aria-current={current === "/blog" || (current.startsWith("/blog/") ) ? "page" : undefined}>Blog</a>
         </nav>
       </div>
     </header>

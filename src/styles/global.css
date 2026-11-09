@@ -603,3 +603,16 @@ table.data th { background: var(--soft); font-size: .88rem; }
   .header-row { gap: 10px; }
 }
 @media (max-width: 360px) { .menu-label { display: none; } .menu summary::before { content: "Menu"; } }
+.cta { margin: 0 0 24px; }
+article .cta, section + .cta { margin: 28px 0; }
+.cta .button { flex: none; }
+@media (max-width: 520px) { .cta .button { width: 100%; } }
+
+/* ---------- prominent navbar ---------- */
+.site-header { background: var(--card); backdrop-filter: none; border-bottom: 1px solid var(--line); box-shadow: 0 1px 0 rgba(15,23,42,.04), 0 6px 20px -12px rgba(15,23,42,.25); }
+.header-row { min-height: 68px; }
+.menu summary { background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 700; box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--brand) 60%, transparent); }
+.menu summary:hover, .menu[open] summary { background: var(--brand-press); border-color: var(--brand-press); color: #fff; }
+.top-links a { color: var(--muted); }
+.top-links a:hover { color: var(--ink); }
+.top-links a[aria-current="page"] { color: var(--brand); background: var(--brand-soft); }
