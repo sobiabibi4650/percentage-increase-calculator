@@ -655,3 +655,8 @@ button.secondary:hover, a.secondary:hover { background: var(--brand-soft); color
 .quick-row a[aria-current="page"] { background: var(--brand-fill); }
 .skip { background: var(--brand-fill); }
 .chip-more { background: transparent; color: var(--brand); }
+
+/* trust line under the home lede */
+.trust { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: -8px 0 18px; padding: 0; font-size: .9rem; font-weight: 600; color: var(--muted); }
+.trust li { display: inline-flex; align-items: center; gap: 6px; }
+.trust li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--chip-up-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23166534' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; }

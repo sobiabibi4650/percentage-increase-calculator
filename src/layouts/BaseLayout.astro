@@ -32,6 +32,7 @@ const current = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteSchema = path === "/" ? { "@context": "https://schema.org", "@graph": [
   { "@type": "WebSite", name: "PercentageIncrease.us", url: absoluteUrl("/"), inLanguage: "en-US" },
   { "@type": "Organization", name: "PercentageIncrease.us", url: absoluteUrl("/"), logo: absoluteUrl("/logo.svg") },
+  { "@type": "ItemList", name: "Percentage calculators", itemListElement: calculators.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: `${c.label} Calculator`.replace(" Calculator Calculator", " Calculator"), url: absoluteUrl(c.href) })) },
 ] } : null;
 const articleSchema = article ? { "@context": "https://schema.org", "@type": "Article", headline: title, description, datePublished: article.published, dateModified: article.modified ?? article.published, mainEntityOfPage: canonical, author: { "@type": "Organization", name: "PercentageIncrease.us" }, publisher: { "@type": "Organization", name: "PercentageIncrease.us", logo: { "@type": "ImageObject", url: absoluteUrl("/logo.svg") } } } : null;
 const graph = [
