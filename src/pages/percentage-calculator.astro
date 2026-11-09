@@ -10,13 +10,15 @@ const faqs: FaqItem[] = [
   { question: "What is 16 out of 20 as a percentage?", answer: "16 ÷ 20 = 0.8, so 16 out of 20 is 80%." },
   { question: "What is 24/30 as a percentage?", answer: "24 ÷ 30 = 0.8, so 24/30 is 80%." },
   { question: "What is 11 out of 15 as a percentage?", answer: "11 ÷ 15 = 0.7333…, so 11 out of 15 is about 73.33%." },
-  { question: "What percent of 42 is 29.4?", answer: "29.4 ÷ 42 = 0.7, so 29.4 is 70% of 42." }
+  { question: "What percent of 42 is 29.4?", answer: "29.4 ÷ 42 = 0.7, so 29.4 is 70% of 42." },
+  { question: "What is 25/30 as a percentage?", answer: "25 ÷ 30 = 0.8333…, so 25/30 is about 83.33%." },
+  { question: "What is 15 as a percentage of 20?", answer: "15 ÷ 20 = 0.75, so 15 is 75% of 20." }
 ];
 ---
 
 <BaseLayout
   title="Percentage Calculator: X Out of Y as a Percent"
-  description="Find what percent X is of Y, like 16 out of 20 or 24/30, with the working shown. Free, instant, and private."
+  description="Find what percent X is of Y (16 out of 20, 24/30) or X% of a number (25% of 80). Two calculators with every step shown."
   path="/percentage-calculator"
   faqs={faqs}
   crumb={{ name: "Percentage calculator", path: "/percentage-calculator" }}
@@ -24,8 +26,11 @@ const faqs: FaqItem[] = [
 >
   <Crumbs current="Percentage calculator" />
   <h1>Percentage Calculator: X Out of Y as a Percent</h1>
-  <p class="lede">Type a part and a whole. The percent and every step update as you type.</p>
+  <p class="lede">Two everyday percentage questions, one page. Use the first calculator for scores and fractions, and the second to take a percentage of a number.</p>
+  <h2 class="calc-title">X out of Y as a percent</h2>
   <ToolCalc client:load tool="percentOf" />
+  <h2 class="calc-title">What is X% of a number?</h2>
+  <ToolCalc client:load tool="percentNum" />
 
   <section>
     <h2>How to turn “X out of Y” into a percentage</h2>
@@ -33,8 +38,9 @@ const faqs: FaqItem[] = [
     <p>The same rule answers “14 of 25 is what percent” (56%) and “15 as a percentage of 20” (75%). The whole always goes on the bottom.</p>
   </section>
   <section>
-    <h2>How to calculate the percentage of a number</h2>
-    <p>To find X% of Y, turn the percent into a decimal and multiply: 25% of 80 is 0.25 × 80 = 20. For quick X% of Y questions, use the <a href="/add-percentage-calculator">add a percentage calculator</a> or multiply by the decimal on any phone.</p>
+    <h2>How do you calculate the percentage of a number?</h2>
+    <p>Turn the percent into a decimal by dividing it by 100, then multiply. 25% of 80 is 0.25 × 80 = 20. A tip works the same way: 18% of a $45 bill is 0.18 × 45 = $8.10.</p>
+    <p>A handy shortcut: X% of Y always equals Y% of X. So 8% of 50 is the same as 50% of 8, which is 4. Flip the question whenever one side is easier to do in your head.</p>
   </section>
   <section>
     <h2>Common mistakes</h2>

@@ -15,7 +15,7 @@ const faqs: FaqItem[] = [
 
 <BaseLayout
   title="Profit Percentage Calculator (Profit Margin)"
-  description="Calculate profit percentage and gross profit margin from cost and revenue, plus markup on cost."
+  description="Calculate profit percentage and gross profit margin from cost and selling price. Also shows markup on cost, so you can compare both views of profit."
   path="/profit-margin-calculator"
   faqs={faqs}
   crumb={{ name: "Profit percentage", path: "/profit-margin-calculator" }}
@@ -38,6 +38,18 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Losses</h2>
     <p>If cost exceeds revenue, profit and margin turn negative. A $60 cost sold for $40 is a −50% margin.</p>
+  </section>
+  <section>
+    <h2>Gross, operating, and net margin</h2>
+    <p>This tool works out gross margin: revenue minus the direct cost of the item. Operating margin also subtracts rent, wages, and other running costs. Net margin subtracts everything, including taxes and interest. A product can show a healthy 40% gross margin while the business as a whole earns 5% net.</p>
+  </section>
+  <section>
+    <h2>A small-business example</h2>
+    <p>A candle maker spends $6 on wax, a jar, and a wick, then sells each candle for $18. Profit per candle is $12, so the gross margin is 12 ÷ 18 = 66.67% and the markup on cost is 200%. If a marketplace takes a 15% fee, the real revenue drops to $15.30 and the margin falls to about 60.8%. Run the numbers both ways before setting a price.</p>
+  </section>
+  <section>
+    <h2>Price for a target margin</h2>
+    <p>To hit a margin, divide the cost by one minus the margin. For a 40% margin on a $30 cost: 30 ÷ 0.6 = $50. For a 50% margin, the same item needs a $60 price.</p>
   </section>
 
   <Faq items={faqs} />

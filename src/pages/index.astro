@@ -47,7 +47,7 @@ const faqs: FaqItem[] = [
   webApp
 >
   <h1>Percentage Increase Calculator</h1>
-  <p class="lede">Enter the old number and the new one. The percent, including a drop, updates as you type.</p>
+  <p class="lede">This percent increase calculator shows how much a number grew, or fell, as you type. Enter the old number and the new one to get the answer and the working.</p>
   <Calculator client:load initialMode="find" initialFrom="4" initialTo="5" />
   <noscript>
     <p>The interactive calculator needs JavaScript. The formula and the worked examples below are in the page itself.</p>
@@ -62,6 +62,32 @@ const faqs: FaqItem[] = [
     <p>
       If the result is negative, the value fell. This page labels that result as a decrease rather than hiding the sign. Adding a percent, and reversing a percent, use the two other modes above. Comparing two numbers that have no before-and-after order is a different question, answered on the percentage difference page.
     </p>
+  </section>
+
+  <section>
+    <h2>How to use the percent increase calculator</h2>
+    <p>The calculator has three modes, one for each way people usually come at this question:</p>
+    <ul class="plain-list">
+      <li><strong>Find percent</strong> compares two numbers. Use it when you know the before and the after, such as last year's and this year's rent.</li>
+      <li><strong>Add percent</strong> applies a rate you already know. Use it to see what a 4% raise or a 7.5% price hike does to a figure.</li>
+      <li><strong>Reverse</strong> works backward from a final number. Use it when a receipt shows the price after an increase and you want the price before it.</li>
+    </ul>
+    <p>Each answer comes with the exact formula filled in with your numbers, so you can copy the working into homework, a report, or an email. The <strong>Copy link</strong> button saves your inputs in the address, which makes it easy to share a result with someone else.</p>
+  </section>
+
+  <section>
+    <h2>Common percent increases at a glance</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Old value</th><th>New value</th><th>Percent increase</th><th>Where you might see it</th></tr></thead>
+      <tbody>
+        <tr><td>$3.50</td><td>$3.85</td><td>10%</td><td>A coffee price change</td></tr>
+        <tr><td>$1,500</td><td>$1,620</td><td>8%</td><td>A rent renewal</td></tr>
+        <tr><td>$60,000</td><td>$63,000</td><td>5%</td><td>An annual raise</td></tr>
+        <tr><td>2,400</td><td>3,000</td><td>25%</td><td>Monthly website visitors</td></tr>
+        <tr><td>50</td><td>100</td><td>100%</td><td>A value that doubled</td></tr>
+      </tbody>
+    </table></div>
+    <p>A result above 100% simply means the new number is more than double the old one. Going from 50 to 150 is a 200% increase, because the value grew by twice its starting size.</p>
   </section>
 
   <section>

@@ -6,13 +6,19 @@ const two = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
 const formatNumber = (v: number) => (Number.isFinite(v) ? two.format(v) : fmtNum(v));
 const formatPercent = (v: number) => (Number.isFinite(v) ? `${two.format(v)}%` : "undefined");
 
-export type Tool = "percentOf" | "off" | "markup" | "profit" | "error" | "fraction" | "win";
+export type Tool = "percentOf" | "percentNum" | "off" | "markup" | "profit" | "error" | "fraction" | "win" | "moe" | "composition";
 
-interface Field { key: string; label: string; def: string; prefix?: string }
+/** z-scores for the confidence levels the margin of error tool accepts. */
+const Z: Record<number, number> = { 80: 1.282, 85: 1.44, 90: 1.645, 95: 1.96, 98: 2.326, 99: 2.576 };
+
+interface Field { key: string; label: string; def: string; options?: string[] }
 interface Out { main: string; label: string; steps: string[]; extra?: [string, string][] }
 
 const FIELDS: Record<Tool, Field[]> = {
   percentOf: [{ key: "a", label: "Part (X)", def: "16" }, { key: "b", label: "Whole (Y)", def: "20" }],
+  percentNum: [{ key: "a", label: "Percent (X%)", def: "25" }, { key: "b", label: "Of the number (Y)", def: "80" }],
+  moe: [{ key: "a", label: "Sample size (n)", def: "1000" }, { key: "b", label: "Sample proportion (%)", def: "50" }, { key: "c", label: "Confidence level", def: "95", options: ["80", "85", "90", "95", "98", "99"] }],
+  composition: [{ key: "a", label: "Mass of the element (g or g/mol)", def: "2.016" }, { key: "b", label: "Total mass of the compound (g or g/mol)", def: "18.015" }],
   off: [{ key: "a", label: "Original price ($)", def: "80" }, { key: "b", label: "Percent off (%)", def: "25" }],
   markup: [{ key: "a", label: "Cost ($)", def: "40" }, { key: "b", label: "Selling price ($)", def: "60" }],
   profit: [{ key: "a", label: "Cost ($)", def: "40" }, { key: "b", label: "Revenue / selling price ($)", def: "60" }],
@@ -49,6 +55,31 @@ function compute(tool: Tool, v: Record<string, string>): Out | string {
       return { main: formatPercent(p), label: `${formatNumber(a)} is ${formatPercent(p)} of ${formatNumber(b)}`,
         steps: [`${formatNumber(a)} ÷ ${formatNumber(b)} = ${formatNumber(a / b)}`, `${formatNumber(a / b)} × 100 = ${formatPercent(p)}`],
         extra: [["As a fraction", `${formatNumber(a)}/${formatNumber(b)}`], ["Remaining", formatPercent(100 - p)]] };
+    }
+    case "percentNum": {
+      const r = (a / 100) * b;
+      return { main: formatNumber(r), label: `${formatNumber(a)}% of ${formatNumber(b)}`,
+        steps: [`${formatNumber(a)}% = ${formatNumber(a)} ÷ 100 = ${formatNumber(a / 100)}`, `${formatNumber(a / 100)} × ${formatNumber(b)} = ${formatNumber(r)}`],
+        extra: [[`${formatNumber(b)} + ${formatNumber(a)}%`, formatNumber(b + r)], [`${formatNumber(b)} − ${formatNumber(a)}%`, formatNumber(b - r)]] };
+    }
+    case "moe": {
+      const c = parseNumber(v.c ?? "");
+      const z = c === null ? undefined : Z[c];
+      if (!z) return "Choose a confidence level of 80, 85, 90, 95, 98, or 99.";
+      if (a < 1 || !Number.isInteger(a)) return "Sample size must be a whole number of at least 1.";
+      if (b < 0 || b > 100) return "The sample proportion must be between 0% and 100%.";
+      const p = b / 100, se = Math.sqrt((p * (1 - p)) / a), m = z * se * 100;
+      return { main: `±${formatPercent(m)}`, label: `Margin of error at ${c}% confidence`,
+        steps: [`Standard error = √(${formatNumber(p)} × ${formatNumber(1 - p)} ÷ ${formatNumber(a)}) = ${se.toFixed(4)}`, `Margin = ${z} × ${se.toFixed(4)} × 100 = ${formatPercent(m)}`],
+        extra: [["Low end", formatPercent(Math.max(0, b - m))], ["High end", formatPercent(Math.min(100, b + m))]] };
+    }
+    case "composition": {
+      if (b <= 0) return "The total mass must be greater than 0.";
+      if (a < 0 || a > b) return "The element's mass must be between 0 and the total mass.";
+      const pc = (a / b) * 100;
+      return { main: formatPercent(pc), label: "Percent composition by mass",
+        steps: [`${fmtNum(a)} ÷ ${fmtNum(b)} = ${(a / b).toFixed(4)}`, `${(a / b).toFixed(4)} × 100 = ${formatPercent(pc)}`],
+        extra: [["Rest of the compound", formatPercent(100 - pc)], ["Mass of the rest", fmtNum(Number((b - a).toFixed(6)))]] };
     }
     case "off": {
       const save = a * (b / 100), price = a - save;
@@ -96,8 +127,14 @@ export default function ToolCalc({ tool }: { tool: Tool }) {
         {fields.map((f) => (
           <label class={`field${fields.length === 3 && f.key === "c" ? " wide-field" : ""}`} key={f.key}>
             {f.label}
-            <input type="text" inputMode={tool === "fraction" ? "text" : "decimal"} autoComplete="off" value={vals[f.key]}
-              onInput={(e) => setVals({ ...vals, [f.key]: (e.target as HTMLInputElement).value })} />
+            {f.options ? (
+              <select value={vals[f.key]} onChange={(e) => setVals({ ...vals, [f.key]: (e.target as HTMLSelectElement).value })}>
+                {f.options.map((o) => <option key={o} value={o}>{o}%</option>)}
+              </select>
+            ) : (
+              <input type="text" inputMode={tool === "fraction" ? "text" : "decimal"} autoComplete="off" value={vals[f.key]}
+                onInput={(e) => setVals({ ...vals, [f.key]: (e.target as HTMLInputElement).value })} />
+            )}
           </label>
         ))}
       </div>
@@ -112,7 +149,7 @@ export default function ToolCalc({ tool }: { tool: Tool }) {
         )}
       </div>
       <div class="actions">
-        <button type="button" class="secondary" onClick={() => setVals(Object.fromEntries(fields.map((f) => [f.key, ""])))}>Clear</button>
+        <button type="button" class="secondary" onClick={() => setVals(Object.fromEntries(fields.map((f) => [f.key, f.options ? f.def : ""])))}>Clear</button>
       </div>
     </div>
   );

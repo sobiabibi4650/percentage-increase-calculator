@@ -22,6 +22,16 @@ const faqs: FaqItem[] = [
       "Skip the five steps above. Multiply the original by 1 plus the percent divided by 100.",
   },
   {
+    question: "What is the percent of increase from 5 to 7?",
+    answer:
+      "The change is 7 − 5 = 2. Divide by the starting 5 to get 0.4, then multiply by 100. The percent increase from 5 to 7 is 40%. From 5 to 6 it is 20%, and from 5 to 9 it is 80%.",
+  },
+  {
+    question: "How do I calculate a 3 percent increase?",
+    answer:
+      "Multiply the number by 1.03. A $52,000 salary with a 3 percent increase becomes $53,560. The extra amount is $52,000 × 0.03 = $1,560.",
+  },
+  {
     question: "What mistake shows up most often?",
     answer:
       "Dividing the change by the new value, or treating a percentage-point gap as a percentage increase. A move from 5% to 7% is 2 percentage points, and it is also a 40% increase relative to 5.",
@@ -30,15 +40,15 @@ const faqs: FaqItem[] = [
 ---
 
 <BaseLayout
-  title="How to Calculate Percentage Increase"
-  description="Step-by-step: subtract the original from the new value, divide by the original, and multiply by 100. Includes a worked $4 to $5 example and the mistakes that change the answer."
+  title="How to Calculate Percent Increase Between Two Numbers"
+  description="How to find the percent increase between two numbers in five steps: subtract, divide by the original, multiply by 100. Worked examples, decreases, and common mistakes."
   path="/how-to-calculate-percentage-increase"
   faqs={faqs}
   crumb={{ name: "How to calculate", path: "/how-to-calculate-percentage-increase" }}
 >
   <Crumbs current="How to calculate" />
-  <h1>How to Calculate Percentage Increase</h1>
-  <p class="lede">Five steps, one coffee price, and the places the arithmetic usually goes wrong.</p>
+  <h1>How to Calculate Percent Increase</h1>
+  <p class="lede">To find the percent increase between two numbers, subtract the old number from the new one, divide by the old number, and multiply by 100. Here is that process step by step, with the slips that most often change the answer.</p>
   <div class="cta"><p>Want the answer now? Enter two numbers and see each step worked out.</p><a class="button" href="/">Open the calculator</a></div>
 
   <section>
@@ -54,6 +64,39 @@ const faqs: FaqItem[] = [
       If step 3 comes out negative, you still finish the steps. From $5 to $4, the change is −1, −1 ÷ 5 is −0.20, and the result is −20%. Say “20% decrease” in a sentence if you prefer words to a signed number. Both refer to the same result.
     </p>
     <p><a href="/?mode=find&from=4&to=5">Check $4 to $5 in the calculator</a>.</p>
+  </section>
+
+  <section>
+    <h2>How to find the percent increase between two numbers</h2>
+    <p>
+      The order of the two numbers matters more than the numbers themselves. Always ask which value came first, because that one becomes the base. Here are three quick examples that start from the same number, so you can see how the base works:
+    </p>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>From</th><th>To</th><th>Change</th><th>Change ÷ original</th><th>Percent increase</th></tr></thead>
+      <tbody>
+        <tr><td>5</td><td>6</td><td>1</td><td>0.2</td><td>20%</td></tr>
+        <tr><td>5</td><td>7</td><td>2</td><td>0.4</td><td>40%</td></tr>
+        <tr><td>5</td><td>9</td><td>4</td><td>0.8</td><td>80%</td></tr>
+        <tr><td>40</td><td>50</td><td>10</td><td>0.25</td><td>25%</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Notice that going from 5 to 7 is a 40% rise, yet going back from 7 to 5 is only about a 28.57% drop. The gap is the same two units, but the base changed from 5 to 7.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to find percent increase and decrease with one formula</h2>
+    <p>
+      You do not need two formulas. Use (new − old) ÷ old × 100 every time and read the sign. A positive result is an increase. A negative result is a decrease. Rent that goes from $1,500 to $1,620 shows +8%, while a stock that slips from $80 to $68 shows −15%. The <a href="/percent-change-calculator">percent change calculator</a> labels each result for you, so the sign is never ambiguous.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to calculate a 3 percent increase (or any set percent)</h2>
+    <p>
+      Sometimes you already know the percent and want the new number. In that case, skip the subtraction and multiply by 1 plus the rate. A 3 percent increase means multiplying by 1.03, a 10 percent increase means 1.10, and a 2.8 percent cost-of-living raise means 1.028. On a $52,000 salary, a 3 percent increase adds $1,560 for a new total of $53,560. The <a href="/add-percentage-calculator">add a percentage calculator</a> does this in one step.
+    </p>
   </section>
 
   <section>

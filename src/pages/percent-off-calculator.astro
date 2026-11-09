@@ -15,7 +15,7 @@ const faqs: FaqItem[] = [
 
 <BaseLayout
   title="Percent Off Calculator (Discount & Sale Price)"
-  description="Work out the sale price and how much you save from any percent-off discount. Shows the math step by step."
+  description="Percent off calculator: enter a price and a discount to get the sale price and your savings, with the math shown. Works for any sale or coupon."
   path="/percent-off-calculator"
   faqs={faqs}
   crumb={{ name: "Percent off", path: "/percent-off-calculator" }}
@@ -27,17 +27,21 @@ const faqs: FaqItem[] = [
   <ToolCalc client:load tool="off" />
 
   <section>
-    <h2>How do you find percent off?</h2>
+    <h2>Percent off formula</h2>
     <p>Multiply the original price by the discount as a decimal to get the savings, then subtract. $80 at 25% off: $80 × 0.25 = $20 saved, so you pay <strong>$60</strong>.</p>
     <p>A faster shortcut: multiply by (100 − discount)%. 25% off means you pay 75%, and $80 × 0.75 = $60.</p>
   </section>
   <section>
     <h2>Stacked discounts are not added</h2>
-    <p>An extra 10% off a 25%-off price is not 35% off. You pay 0.75 × 0.90 = 0.675 of the price, which is a 32.5% total discount. Run the calculator twice to stack codes.</p>
+    <p>An extra 10% off a 25%-off price is not 35% off. You pay 0.75 × 0.90 = 0.675 of the price, which is a 32.5% total discount. Run the calculator twice to stack codes. For mental-math shortcuts, read our guide on <a href="/blog/how-to-find-percent-off">how to find percent off</a>.</p>
   </section>
   <section>
     <h2>Sales tax</h2>
     <p>Most US states charge sales tax on the discounted price, not the original. Add your local rate after finding the sale price.</p>
+  </section>
+  <section>
+    <h2>Compare deals the smart way</h2>
+    <p>A bigger percent is not always the better deal. 40% off a $90 jacket saves $36, while 25% off a $160 jacket saves $40 but still costs more to buy. Compare the final price you pay, and the savings in dollars, rather than the headline percent alone.</p>
   </section>
   <section>
     <h2>Sale price chart</h2>

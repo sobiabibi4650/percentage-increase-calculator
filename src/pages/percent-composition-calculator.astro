@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "Do the percentages always add up to 100%?", answer: "Yes. Each element's share adds up to the whole compound. Small differences come from rounding atomic masses." },
+  { question: "What is the percent composition of oxygen in water?", answer: "Oxygen is 15.999 g/mol out of 18.015 g/mol, which is about 88.81%." },
+  { question: "Is percent composition the same as mass percent?", answer: "Yes. In chemistry classes the two names mean the same thing: the mass of one part divided by the total mass, times 100." },
+  { question: "Can I use moles instead of grams?", answer: "Not directly. It is measured by mass, so convert moles to grams with the molar mass first." }
+];
+---
+
+<BaseLayout
+  title="Percent Composition Calculator"
+  description="Find the percent composition by mass of an element in a compound. Enter the element's mass and the compound's molar mass to see each step."
+  path="/percent-composition-calculator"
+  faqs={faqs}
+  crumb={{ name: "Percent composition", path: "/percent-composition-calculator" }}
+  webApp
+>
+  <Crumbs current="Percent composition" />
+  <h1>Percent Composition Calculator</h1>
+  <p class="lede">Enter the mass an element contributes and the total mass of the compound. You can use grams from a lab sample or molar masses from the periodic table.</p>
+  <ToolCalc client:load tool="composition" />
+
+  <section>
+    <h2>Percent composition formula</h2>
+    <pre>Percent composition = (mass of element ÷ mass of compound) × 100</pre>
+    <p>For water, H₂O, the two hydrogen atoms contribute 2 × 1.008 = 2.016 g/mol and the whole molecule weighs 18.015 g/mol. 2.016 ÷ 18.015 × 100 = <strong>11.19%</strong> hydrogen. The oxygen makes up the other 88.81%.</p>
+  </section>
+  <section>
+    <h2>How to find percent composition step by step</h2>
+    <ol class="steps"><li>Write the chemical formula and count the atoms of each element.</li><li>Multiply each element's atomic mass by its number of atoms.</li><li>Add those values to get the molar mass of the compound.</li><li>Divide the element's total mass by the molar mass, then multiply by 100.</li><li>Check your work: the percentages of all elements should add up to 100%, give or take rounding.</li></ol>
+  </section>
+  <section>
+    <h2>Lab data works the same way</h2>
+    <p>If a 5.00 g sample of a compound contains 1.20 g of carbon, the carbon content is 1.20 ÷ 5.00 × 100 = 24.0%. Lab results like this are how chemists confirm an unknown compound's formula.</p>
+  </section>
+  <section>
+    <h2>From percent composition to an empirical formula</h2>
+    <p>Chemists often run the process in reverse. Suppose a compound is 40.0% carbon, 6.7% hydrogen, and 53.3% oxygen by mass. Assume a 100 g sample, so you have 40.0 g C, 6.7 g H, and 53.3 g O. Divide each by its atomic mass to get moles: about 3.33 mol C, 6.65 mol H, and 3.33 mol O.</p>
+    <p>Divide every value by the smallest one (3.33) and the ratio is 1 : 2 : 1, so the empirical formula is CH₂O. Glucose, C₆H₁₂O₆, has exactly this ratio, which is why its mass percentages match.</p>
+  </section>
+  <section>
+    <h2>Percent composition of common compounds</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Compound</th><th>Element</th><th>Element mass (g/mol)</th><th>Compound mass (g/mol)</th><th>Percent</th></tr></thead>
+      <tbody>
+        <tr><td>Water, H₂O</td><td>Hydrogen</td><td>2.016</td><td>18.015</td><td>11.19%</td></tr>
+        <tr><td>Water, H₂O</td><td>Oxygen</td><td>15.999</td><td>18.015</td><td>88.81%</td></tr>
+        <tr><td>Table salt, NaCl</td><td>Sodium</td><td>22.990</td><td>58.443</td><td>39.34%</td></tr>
+        <tr><td>Carbon dioxide, CO₂</td><td>Carbon</td><td>12.011</td><td>44.009</td><td>27.29%</td></tr>
+        <tr><td>Glucose, C₆H₁₂O₆</td><td>Carbon</td><td>72.066</td><td>180.156</td><td>40.00%</td></tr>
+        <tr><td>Ammonia, NH₃</td><td>Nitrogen</td><td>14.007</td><td>17.031</td><td>82.24%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

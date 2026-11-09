@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ToolCalc from "../components/ToolCalc.tsx";
+import Crumbs from "../components/Crumbs.astro";
+import Faq from "../components/Faq.astro";
+import SeeAlso from "../components/SeeAlso.astro";
+import type { FaqItem } from "../lib/schema";
+
+const faqs: FaqItem[] = [
+  { question: "What is a good margin of error?", answer: "Many published polls aim for ±3% to ±5% at 95% confidence. For small internal surveys, ±10% can still show the broad direction." },
+  { question: "How do I make the margin smaller?", answer: "Survey more people, or accept a lower confidence level. Moving from 95% to 90% confidence shrinks the margin by about 16%." },
+  { question: "Is margin of error the same as a confidence interval?", answer: "The confidence interval is the full range: the result plus or minus the margin of error. With 52% ± 3%, the interval is 49% to 55%." },
+  { question: "Does population size matter?", answer: "Only when the sample is a large share of the population, roughly more than 5%. For a national poll of 1,000 people, the population size barely changes the answer." }
+];
+---
+
+<BaseLayout
+  title="Margin of Error Calculator"
+  description="Calculate the margin of error for a survey or poll from sample size, proportion, and confidence level, with the formula worked out."
+  path="/margin-of-error-calculator"
+  faqs={faqs}
+  crumb={{ name: "Margin of error", path: "/margin-of-error-calculator" }}
+  webApp
+>
+  <Crumbs current="Margin of error" />
+  <h1>Margin of Error Calculator</h1>
+  <p class="lede">Enter how many people you surveyed, the share who gave an answer, and your confidence level. The result and the likely range update instantly.</p>
+  <ToolCalc client:load tool="moe" />
+
+  <section>
+    <h2>Margin of error formula</h2>
+    <pre>Margin of error = z × √( p × (1 − p) ÷ n )</pre>
+    <p>Here <em>p</em> is the sample proportion as a decimal, <em>n</em> is the sample size, and <em>z</em> comes from the confidence level (1.96 for 95%). A poll of 1,000 people where 50% agree has a margin of 1.96 × √(0.25 ÷ 1,000) ≈ <strong>±3.1%</strong>, so the true figure is likely between 46.9% and 53.1%.</p>
+  </section>
+  <section>
+    <h2>Why 50% is the safe default</h2>
+    <p>The margin is largest when the proportion is 50%. If you are planning a survey and do not know the result yet, use 50% to get the most cautious estimate. A result of 20% or 80% from the same sample has a smaller margin, about ±2.5% for 1,000 people.</p>
+  </section>
+  <section>
+    <h2>Sample size has diminishing returns</h2>
+    <p>Quadrupling the sample only halves the margin. Going from 250 to 1,000 respondents cuts it from about ±6.2% to ±3.1%, but reaching ±1.5% takes roughly 4,300 people. That is why most national polls stop near 1,000 to 1,500.</p>
+  </section>
+  <section>
+    <h2>What the margin of error does not cover</h2>
+    <p>This formula assumes a simple random sample. It does not account for people who refuse to answer, poorly worded questions, or a sample that leans toward one group. Those problems can move a result far more than the margin of error suggests.</p>
+  </section>
+  <section>
+    <h2>Example: a customer satisfaction survey</h2>
+    <p>A coffee chain emails 400 customers and 72% say they would recommend the shop. At 95% confidence, the standard error is √(0.72 × 0.28 ÷ 400) ≈ 0.0224, and 1.96 × 0.0224 ≈ ±4.4%. So the real share of happy customers is most likely between about 67.6% and 76.4%.</p>
+    <p>If last quarter's survey showed 69%, the new 72% sits inside that range. The honest summary is that satisfaction looks steady, not that it rose by three points. Reading results this way keeps teams from celebrating, or panicking, over noise.</p>
+  </section>
+  <section>
+    <h2>Margin of error by sample size (p = 50%)</h2>
+    <div class="table-scroll"><table class="data">
+      <thead><tr><th>Sample size</th><th>90% confidence</th><th>95% confidence</th><th>99% confidence</th></tr></thead>
+      <tbody>
+        <tr><td>100</td><td>±8.2%</td><td>±9.8%</td><td>±12.9%</td></tr>
+        <tr><td>250</td><td>±5.2%</td><td>±6.2%</td><td>±8.1%</td></tr>
+        <tr><td>500</td><td>±3.7%</td><td>±4.4%</td><td>±5.8%</td></tr>
+        <tr><td>1,000</td><td>±2.6%</td><td>±3.1%</td><td>±4.1%</td></tr>
+        <tr><td>1,500</td><td>±2.1%</td><td>±2.5%</td><td>±3.3%</td></tr>
+        <tr><td>2,500</td><td>±1.6%</td><td>±2.0%</td><td>±2.6%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <Faq items={faqs} />
+  <SeeAlso />
+</BaseLayout>

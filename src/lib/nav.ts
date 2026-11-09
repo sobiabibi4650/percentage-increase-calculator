@@ -11,6 +11,8 @@ export const calculators: NavLink[] = [
   { href: "/profit-margin-calculator", label: "Profit Percentage", blurb: "Margin and markup", short: "Profit Margin" },
   { href: "/percent-error-calculator", label: "Percent Error", blurb: "Measured vs actual", short: "Percent Error" },
   { href: "/fraction-to-percent-calculator", label: "Fraction to Percent", blurb: "3/5, 4 1/4, 16/20", short: "Fraction to %" },
+  { href: "/margin-of-error-calculator", label: "Margin of Error", blurb: "Surveys and polls", short: "Margin of Error" },
+  { href: "/percent-composition-calculator", label: "Percent Composition", blurb: "Mass percent in chemistry", short: "Composition" },
   { href: "/win-percentage-calculator", label: "Win Percentage", blurb: "Wins, losses, ties", short: "Win %" },
   { href: "/add-percentage-calculator", label: "Add a Percentage", blurb: "Number plus X%" },
   { href: "/reverse-percentage-calculator", label: "Reverse Percentage", blurb: "Find the original", short: "Reverse %" },

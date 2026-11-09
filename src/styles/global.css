@@ -626,3 +626,17 @@ article .cta, section + .cta { margin: 28px 0; }
 .quick-row a:hover { border-color: var(--line-strong); background: var(--card); }
 .quick-row a[aria-current="page"] { background: var(--brand); color: #fff; }
 .quick-row::after { content: ""; flex: none; width: 28px; }
+.calc-title { font-size: 1.1rem; margin: 22px 0 10px; }
+
+/* Desktop: no hidden horizontal scroll — show what fits, plus an "All calculators" chip. */
+.chip-more { display: none; }
+@media (min-width: 761px) {
+  .quick-row { overflow: visible; flex-wrap: nowrap; -webkit-mask-image: none; mask-image: none; }
+  .quick-row::after { display: none; }
+  .quick-row a:nth-of-type(n+9) { display: none; }
+  .chip-more { display: inline-flex; align-items: center; flex: none; min-height: 0; margin-left: auto; padding: 7px 13px; border-radius: 999px; font-size: .88rem; font-weight: 700; background: transparent; color: var(--brand); border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent); box-shadow: none; }
+  .chip-more:hover { background: var(--brand-soft); color: var(--brand); }
+  /* keep the current page visible even if it is past the 8th chip */
+  .quick-row a[aria-current="page"]:nth-of-type(n+9) { display: inline-flex; }
+}
+@media (min-width: 761px) and (max-width: 1000px) { .quick-row a:nth-of-type(n+6) { display: none; } .quick-row a[aria-current="page"] { display: inline-flex; } }

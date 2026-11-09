@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "test": "node --experimental-strip-types --test src/lib/percent.test.ts",
     "verify": "node scripts/verify-ui.mjs",
-    "deploy": "astro build && wrangler deploy"
+    "deploy": "astro build && wrangler deploy",
+    "test:e2e": "node scripts/test-calculators.mjs"
   },
   "engines": {
     "node": ">=22"

@@ -15,7 +15,7 @@ const faqs: FaqItem[] = [
 
 <BaseLayout
   title="Win Percentage Calculator"
-  description="Calculate win percentage from wins, losses, and ties, in the .xxx format used by MLB, NBA, and NFL standings."
+  description="Calculate a team's win percentage from wins, losses, and ties in the .xxx format used in MLB, NBA, and NFL standings, with ties counted as half a win."
   path="/win-percentage-calculator"
   faqs={faqs}
   crumb={{ name: "Win percentage", path: "/win-percentage-calculator" }}
@@ -34,6 +34,19 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Why standings show .600</h2>
     <p>US sports leagues print win percentage as a three-digit decimal with no leading zero. A perfect record is 1.000.</p>
+  </section>
+  <section>
+    <h2>How standings use the number</h2>
+    <p>League tables sort teams by this figure because it treats teams fairly even when they have played a different number of games. A club that is 30–20 (.600) is ahead of one that is 31–22 (.585), even though the second club has more wins.</p>
+    <p>Early in a season the decimal swings a lot. One extra victory moves a 3–2 team from .600 to .667, while the same result barely moves a 60–40 team. Read early-season records with that in mind.</p>
+  </section>
+  <section>
+    <h2>Games behind and magic numbers</h2>
+    <p>Standings often show “games behind” next to each record. It is the average of the gap in wins and the gap in losses between two teams. If the leader is 50–30 and your team is 46–34, the gap is (4 + 4) ÷ 2 = 4 games. That measure and the decimal tell the same story from different angles.</p>
+  </section>
+  <section>
+    <h2>Ties in different sports</h2>
+    <ul class="plain-list"><li><strong>NFL:</strong> a tie counts as half a win and half a loss, which is what this calculator does.</li><li><strong>NHL:</strong> points, not this decimal, decide standings, so overtime losses are tracked separately.</li><li><strong>Soccer leagues:</strong> standings use points (3 for a win, 1 for a draw). The decimal is still useful for comparing form.</li><li><strong>Youth and rec leagues:</strong> check the league rules. Some ignore ties entirely; enter 0 ties to match that.</li></ul>
   </section>
 
   <Faq items={faqs} />

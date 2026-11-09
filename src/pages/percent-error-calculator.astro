@@ -15,7 +15,7 @@ const faqs: FaqItem[] = [
 
 <BaseLayout
   title="Percent Error Calculator"
-  description="Find percent error between a measured and an actual value, with absolute and signed error and full working."
+  description="Find the percent error between a measured and an accepted value, with absolute and signed error and every step shown. Built for lab reports."
   path="/percent-error-calculator"
   faqs={faqs}
   crumb={{ name: "Percent error", path: "/percent-error-calculator" }}
@@ -38,6 +38,19 @@ const faqs: FaqItem[] = [
   <section>
     <h2>Percent error vs percent difference</h2>
     <p>Percent error compares to a known true value. When neither value is “correct”, use the <a href="/percentage-difference-calculator">percentage difference calculator</a>.</p>
+  </section>
+  <section>
+    <h2>A worked lab example</h2>
+    <p>Suppose your class measures the boiling point of water as 98.6 °C at sea level, where the accepted value is 100 °C. The absolute difference is 1.4 °C. Divide by 100 and multiply by 100 to get <strong>1.4%</strong>. Because the measured value came in low, the signed version is −1.4%.</p>
+    <p>In a lab report, state both the number and a likely cause, such as a thermometer that was not fully calibrated or a reading taken before the water reached a full boil.</p>
+  </section>
+  <section>
+    <h2>Accuracy versus precision</h2>
+    <p>This figure measures accuracy: how close a result is to the true value. Precision is different. It describes how close repeated measurements are to each other. Five readings of 9.60, 9.61, 9.59, 9.60, and 9.61 m/s² are very precise, yet each one is still about 2% away from the accepted 9.81, so they are not accurate.</p>
+  </section>
+  <section>
+    <h2>Common reasons for a large error</h2>
+    <ul class="plain-list"><li>Reading a scale from an angle (parallax).</li><li>Rounding intermediate values too early.</li><li>Using the wrong units, such as grams where kilograms were expected.</li><li>Equipment that drifts with temperature.</li><li>Comparing against an accepted value for different conditions, like a different altitude.</li></ul>
   </section>
 
   <Faq items={faqs} />
