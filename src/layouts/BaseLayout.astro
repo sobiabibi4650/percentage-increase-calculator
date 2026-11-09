@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
-import { calculators, guides } from "../lib/nav";
+import { calculators, guides, quick } from "../lib/nav";
 import {
   absoluteUrl,
   breadcrumbSchema,
@@ -90,6 +90,11 @@ const graph = [
         </nav>
       </div>
     </header>
+    <nav class="quick" aria-label="Popular calculators">
+      <div class="wrap wide quick-row">
+        {quick.map((l) => <a href={l.href} aria-current={l.href === current ? "page" : undefined}>{l.short}</a>)}
+      </div>
+    </nav>
     <main id="content">
       <div class="wrap">
         <slot />
@@ -97,6 +102,11 @@ const graph = [
     </main>
     <Footer />
     <script>
+      const chip = document.querySelector<HTMLElement>(".quick-row [aria-current]");
+      const row = chip?.parentElement;
+      if (chip && row && chip.offsetLeft + chip.offsetWidth > row.clientWidth * 0.9) {
+        row.scrollLeft = chip.offsetLeft - (row.clientWidth - chip.offsetWidth) / 2;
+      }
       const menu = document.querySelector<HTMLDetailsElement>(".menu");
       document.addEventListener("click", (e) => { if (menu?.open && !menu.contains(e.target as Node)) menu.open = false; });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu?.open) { menu.open = false; menu.querySelector("summary")?.focus(); } });

@@ -616,3 +616,13 @@ article .cta, section + .cta { margin: 28px 0; }
 .top-links a { color: var(--muted); }
 .top-links a:hover { color: var(--ink); }
 .top-links a[aria-current="page"] { color: var(--brand); background: var(--brand-soft); }
+
+/* ---------- quick-access chip row (navbar tier 2) ---------- */
+.site-header { box-shadow: none; }
+.quick { background: var(--card); border-bottom: 1px solid var(--line); box-shadow: 0 6px 20px -14px rgba(15,23,42,.3); }
+.quick-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 8px 0; -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent); mask-image: linear-gradient(90deg, #000 92%, transparent); }
+.quick-row::-webkit-scrollbar { display: none; }
+.quick-row a { flex: none; padding: 7px 13px; border-radius: 999px; background: var(--soft); color: var(--ink); text-decoration: none; font-size: .88rem; font-weight: 600; border: 1px solid transparent; transition: background .15s, border-color .15s; }
+.quick-row a:hover { border-color: var(--line-strong); background: var(--card); }
+.quick-row a[aria-current="page"] { background: var(--brand); color: #fff; }
+.quick-row::after { content: ""; flex: none; width: 28px; }

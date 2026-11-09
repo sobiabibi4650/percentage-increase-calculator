@@ -1,20 +1,20 @@
-export interface NavLink { href: string; label: string; blurb?: string }
+export interface NavLink { href: string; label: string; blurb?: string; short?: string }
 
 export const calculators: NavLink[] = [
-  { href: "/", label: "Percentage Increase", blurb: "Old vs new value" },
-  { href: "/percent-change-calculator", label: "Percent Change", blurb: "Up or down, signed" },
-  { href: "/percentage-decrease-calculator", label: "Percentage Decrease", blurb: "How far it fell" },
-  { href: "/percentage-difference-calculator", label: "Percentage Difference", blurb: "Compare two values" },
-  { href: "/percentage-calculator", label: "Percentage Calculator", blurb: "X% of Y, X is what % of Y" },
-  { href: "/percent-off-calculator", label: "Percent Off / Discount", blurb: "Sale price and savings" },
-  { href: "/markup-calculator", label: "Markup Calculator", blurb: "Cost to selling price" },
-  { href: "/profit-margin-calculator", label: "Profit Percentage", blurb: "Margin and markup" },
-  { href: "/percent-error-calculator", label: "Percent Error", blurb: "Measured vs actual" },
-  { href: "/fraction-to-percent-calculator", label: "Fraction to Percent", blurb: "3/5, 4 1/4, 16/20" },
-  { href: "/win-percentage-calculator", label: "Win Percentage", blurb: "Wins, losses, ties" },
+  { href: "/", label: "Percentage Increase", blurb: "Old vs new value", short: "Increase" },
+  { href: "/percent-change-calculator", label: "Percent Change", blurb: "Up or down, signed", short: "Percent Change" },
+  { href: "/percentage-decrease-calculator", label: "Percentage Decrease", blurb: "How far it fell", short: "Decrease" },
+  { href: "/percentage-difference-calculator", label: "Percentage Difference", blurb: "Compare two values", short: "Difference" },
+  { href: "/percentage-calculator", label: "Percentage Calculator", blurb: "X% of Y, X is what % of Y", short: "X of Y" },
+  { href: "/percent-off-calculator", label: "Percent Off / Discount", blurb: "Sale price and savings", short: "Percent Off" },
+  { href: "/markup-calculator", label: "Markup Calculator", blurb: "Cost to selling price", short: "Markup" },
+  { href: "/profit-margin-calculator", label: "Profit Percentage", blurb: "Margin and markup", short: "Profit Margin" },
+  { href: "/percent-error-calculator", label: "Percent Error", blurb: "Measured vs actual", short: "Percent Error" },
+  { href: "/fraction-to-percent-calculator", label: "Fraction to Percent", blurb: "3/5, 4 1/4, 16/20", short: "Fraction to %" },
+  { href: "/win-percentage-calculator", label: "Win Percentage", blurb: "Wins, losses, ties", short: "Win %" },
   { href: "/add-percentage-calculator", label: "Add a Percentage", blurb: "Number plus X%" },
-  { href: "/reverse-percentage-calculator", label: "Reverse Percentage", blurb: "Find the original" },
-  { href: "/salary-increase-calculator", label: "Salary Increase", blurb: "Raises and pay periods" },
+  { href: "/reverse-percentage-calculator", label: "Reverse Percentage", blurb: "Find the original", short: "Reverse %" },
+  { href: "/salary-increase-calculator", label: "Salary Increase", blurb: "Raises and pay periods", short: "Salary Raise" },
   { href: "/price-increase-calculator", label: "Price Increase", blurb: "Price hikes" },
 ];
 
@@ -33,3 +33,10 @@ export const company: NavLink[] = [
   { href: "/terms", label: "Terms of Use" },
   { href: "/disclaimer", label: "Disclaimer" },
 ];
+
+/** Order of the quick-access chip row under the header (most-searched first). */
+export const quick: NavLink[] = [
+  "/", "/percent-change-calculator", "/percentage-calculator", "/percent-off-calculator", "/markup-calculator",
+  "/profit-margin-calculator", "/percentage-decrease-calculator", "/percentage-difference-calculator",
+  "/fraction-to-percent-calculator", "/percent-error-calculator", "/salary-increase-calculator", "/win-percentage-calculator",
+].map((href) => calculators.find((c) => c.href === href)!);
